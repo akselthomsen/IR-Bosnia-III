@@ -8,16 +8,16 @@ output:
 
 # Intro {.sidebar}
 
-This dashboard covers the materials for the first folow-up course in R programming. Course held in Banja Luka, December 10-13, 2019. The course website of the introductory course can be found [here](http://peterstoltze.dk/RfOS/).
+This dashboard covers the materials for the third course in R programming. Course held in Sarajevo, January 27-20, 2020. The course websites for the previous courses can be found [here](http://peterstoltze.dk/RfOS/) and [here](https://joliencremers.github.io/Course-Materials-Bosnia/).
 
 ---
 
 Instructors: 
 
- - Anne Vinkel Hansen (aih@dst.dk)
- - Jolien Cremers (jcre@sund.ku.dk)
-
-
+ - Aksel Thomsen (akt@dst.dk)
+ - Signe Hermann (she@dst.dk)
+ 
+ 
 ---
 
 Part of the material for this course is adapted from [Gerko Vink](https://github.com/gerkovink/R)
