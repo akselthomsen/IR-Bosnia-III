@@ -151,15 +151,15 @@ type `Yes` in the console and press the return key.
 
 - Part C: Sampling
 
-    - [Lecture C](Contents/Material/Part C/Lecture.html){target="_blank"}
-    - [Exercise C](Contents/Material/Part C/Exercise.html){target="_blank"}
-    - [Solution C](Contents/Material/Part C/Exercise.html){target="_blank"}
+    - [Lecture C](Contents/Material/Part C/Sampling.html){target="_blank"}
+    - [Exercise C](Contents/Material/Part C/Sampling_Exercises.html){target="_blank"}
+    - [Solution C](Contents/Material/Part C/Sampling_Exercises.html){target="_blank"}
        
 - Part D: Estimation and calibration
 
-    - [Lecture D](Contents/Material/Part D/Lecture.html){target="_blank"}
-    - [Exercise D](Contents/Material/Part D/Exercise.html){target="_blank"}
-    - [Solution D](Contents/Material/Part D/Exercise.html){target="_blank"}
+    - [Lecture D](Contents/Material/Part D/Estimation.html){target="_blank"}
+    - [Exercise D](Contents/Material/Part D/Estimation_Exercises.html){target="_blank"}
+    - [Solution D](Contents/Material/Part D/Estimation_Exercises.html){target="_blank"}
 
 ## Column 2
 
