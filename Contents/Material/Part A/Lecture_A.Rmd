@@ -1,6 +1,6 @@
 ---
 title: "Repetition"
-author: "Anne Vinkel (adapted from Gerko Vink)"
+author: "Aksel Thomsen"
 date: "Statistical Programming with R"
 output:
   ioslides_presentation:
@@ -14,17 +14,17 @@ output:
 
 ## Programme {.smaller}
 
-| **Day** |  **Time**     | **Purpose/Details** | **Material** | **Lecturer** | 
-|-------------|---------------|---------------------|--------------|--------------|
-| December 10 | 9:00 - 12:00  | Repetition | A | Anne |
-| December 10 | 13:00 - 15:30 | Statistical inference | B | Jolien |
-| December 11 | 9:00 - 12:00  | Linear models | C | Jolien |
-| December 11 | 13:00 - 15:30 | Generalized linear models | D | Anne |
-| December 12 | 9:00 - 12:00  | Data validation and editing  | E | Anne |
-| December 12 | 13:00 - 15:30 | Imputation | F  | Jolien |
-| December 13 | 9:00 - 12:00  | Evaluation, agreement on summary mission report | 
+| **Day**   |  **Time**     | **Purpose/Details** | **Material** | **Lecturer** | 
+|-----------|---------------|---------------------|--------------|--------------|
+| Monday    | 9:00 - 12:00  | Repetition                          | A | Aksel   |
+|           | 13:00 - 15:30 | Functional Programming              | B | Aksel   |
+| Tuesday   | 9:00 - 12:00  | Sampling                            | C | Signe   |
+|           | 13:00 - 15:30 | Estimation and calibration          | D | Signe   |
+| Wednesday | 9:00 - 12:00  | Preparing large datas for analysis  | E | Aksel   |
+|           | 13:00 - 15:30 | Analysis of large data              | F | Aksel   |
 
 ## Format
+- Same format as the last courses
 - Lectures followed by practicals
 - Materials are on the homepage
   - "Impracticals" are the versions without solutions, "Practicals" the ones with
