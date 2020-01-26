@@ -123,7 +123,7 @@ type `Yes` in the console and press the return key.
 
 ## Column 1
 
-### Tuesday's materials
+### Mondays's materials
 
 - Part A: Repetition
 
