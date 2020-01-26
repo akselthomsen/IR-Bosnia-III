@@ -32,14 +32,15 @@ Part of the material for this course is adapted from [Gerko Vink](https://github
 
 This follow-up course deals with the following topics:
 
-1.	Statistical inference
-2.  Linear models
-3.  Generalised linear models
-4.  Data validation and editing
-5.  Imputation
-
+1. Functional programming
+1. Sampling
+1. Estimation and calibration
+1. Preparing large data for analysis
+1. Analysis of large data
 
 Previous experience with R is required.
+
+We adapt the course as we go. To ensure that you work with the latest iteration of the course materials, we advice all course participants to access the materials online.
 
 ## Column 2
 
@@ -47,36 +48,34 @@ Previous experience with R is required.
 
 | Time        | Topic                                           |
 |:------------|:------------------------------------------------|
-| *Tuesday*   |                                                 |
+| *Monday*    |                                                 |
 | 09.00-12.00 | Repetition (A)                                  |
 |             | *Break*                                         |    
-| 13.00-15.30 | Statistical Inference (B)                       |
-| *Wednesday* |                                                 |
-| 09.00-12.00 | Linear Models (C)                               |
+| 13.00-15.30 | Functional programming (B)                      |
+| *Tuesday*   |                                                 |
+| 09.00-12.00 | Sampling (C)                                    |
 |             | *Break*                                         |             
-| 13.00-15.30 | Generalized Linear Models (D)                   |
-| *Thursday*  |                                                 |
-| 09.00-12.00 | Data Validation and Editing (E)                 |
+| 13.00-15.30 | Estimation and calibration (D)                  |
+| *Wednesday* |                                                 |
+| 09.00-12.00 | Preparing large data for analysis (E)           |
 |             | *Break*                                         |
-| 13.00-15.30 | Imputation (F)                                  |
-| *Friday*    |                                                 |
-| 09.00-12.00 | Evaluation, agreement on summary mission report |
-
+| 13.00-15.30 | Analysis of large data (F)                      |
 
 # How to prepare
 
 ## Column 1
 
-### Preparing your machine for the course
-Dear all, 
+###
 
-The below steps guide you through installing both `R` as well as the necessary additions.
+Welcome to the third course.
+In general the requirements are the same, as for the two previous.
+We might add some extra packages a long the way, but otherwise if everything worked last time - it will also work this time.
 
-We look forward to see you all in Banja Luka,  
+On thursday we wil be working with some large data sets than usual in these courses. We will provide links to them on the course webpage, but we will also have them available on several USB sticks to save you the trouble of downloading several GBs.
 
-*Anne and Jolien*
+/Aksel og Signe
 
-### **System requirements**
+### **0. System requirements**
 
 Bring a laptop computer to the course and make sure that you have full write access and administrator rights to the machine. We will explore programming and compiling in this course. This means that you need full access to your machine. Some corporate laptops come with limited access for their users, we therefore advice you to bring a personal laptop computer, if you have one. 
 
@@ -120,12 +119,11 @@ compilation? (Yes/no/cancel)
 
 type `Yes` in the console and press the return key. 
 
-# Tuesday
+# Monday
 
 ## Column 1
 
 ### Tuesday's materials
-We adapt the course as we go. To ensure that you work with the latest iteration of the course materials, we advice all course participants to access the materials online.
 
 - Part A: Repetition
 
@@ -162,80 +160,51 @@ All lectures are in `html` format. Practicals are walkthrough files that guide y
 
 
 
+# Tuesday
+
+## Column 1
+
+### Tuesday's materials
+
+- Part C: Sampling
+
+    - [Lecture C](Contents/Material/Part C/Lecture.html){target="_blank"}
+    - [Exercise C](Contents/Material/Part C/Exercise.html){target="_blank"}
+    - [Solution C](Contents/Material/Part C/Exercise.html){target="_blank"}
+       
+- Part D: Estimation and calibration
+
+    - [Lecture D](Contents/Material/Part D/Lecture.html){target="_blank"}
+    - [Exercise D](Contents/Material/Part D/Exercise.html){target="_blank"}
+    - [Solution D](Contents/Material/Part D/Exercise.html){target="_blank"}
+
+## Column 2
+
+### Useful references
+- [add]()
+
 # Wednesday
 
 ## Column 1
 
 ### Wednesday's materials
-We adapt the course as we go. To ensure that you work with the latest iteration of the course materials, we advice all course participants to access the materials online.
 
-- Part C: `R` Linear Models
+- Part E: Preparing large data for analysis
 
-    - [Lecture C](Contents/Material/Part C - Linear models/Lecture_C.html){target="_blank"}
-    - [Lecture C Handout](Contents/Material/Part C - Linear models/Lecture_C_handout.html){target="_blank"}
-    - [Practical C](Contents/Material/Part C - Linear models/Practical_C_walkthrough.html){target="_blank"}
-    - [Impractical C](Contents/Material/Part C - Linear models/Practical_C.html){target="_blank"}
-    - [Extra Lecture M Handout](Contents/Material/Part C - Linear models/Lecture_M_handout.html){target="_blank"}
-    - [Extra Practical M](Contents/Material/Part C - Linear models/Practical_M_walkthrough.html){target="_blank"}
-    - [Extra Impractical M](Contents/Material/Part C - Linear models/Practical_M.html){target="_blank"}
-    - [Nurse dataset](Contents/Material/Part C - Linear models/nurses.sav){target="_blank"}
-       
-- Part D: Generalized Linear Models
+    - [Lecture E](Contents/Material/Part E/Lecture.html){target="_blank"}
+    - [Exercise E](Contents/Material/Part E/Exercise.html){target="_blank"}
+    - [Solution E](Contents/Material/Part E/Exercise.html){target="_blank"}
 
-    - [Lecture D](Contents/Material/Part D - GLMs/Lecture_D.html){target="_blank"}
-    - [Lecture D Handout](Contents/Material/Part D - GLMs/Lecture_D_handout.html){target="_blank"}
-    - [Practical D](Contents/Material/Part D - GLMs/Practical_D_walkthrough.html){target="_blank"}
-    - [Impractical D](Contents/Material/Part D - GLMs/Practical_D.html){target="_blank"}
-    - [Extra Practical](Contents/Material/Part D - GLMs/Data_exploration.html){target="_blank"}
-    - Data: [cabinet](Contents/Material/Part D - GLMs/danish_cabinet.xls), 
-    [benefits](Contents/Material/Part D - GLMs/Benefits.xlsx)
+- Part F: Analysis of large data
 
-All lectures are in `html` format. Practicals are are provided both as naked questions but also with ample explanations and solutions - choose according to your taste!
+    - [Lecture F](Contents/Material/Part F/Lecture.html){target="_blank"}
+    - [Exercise F](Contents/Material/Part F/Exercise.html){target="_blank"}
+    - [Solution F](Contents/Material/Part F/Exercise.html){target="_blank"}
 
 ## Column 2
 
 ### Useful references
-- [Practical Regression and Anova using R](https://cran.r-project.org/doc/contrib/Faraway-PRA.pdf) by Julian Faraway  
-
-# Thursday
-
-## Column 1
-
-### Thursday's materials
-We adapt the course as we go. To ensure that you work with the latest iteration of the course materials, we advice all course participants to access the materials online.
-
-- Part E: Data Validation and Editing
-    - [Lecture E](Contents/Material/Part E - Data validation/Lecture_E.html){target="_blank"}
-    - [Practical E](Contents/Material/Part E - Data validation/Practical_E_walkthrough.html){target="_blank"}
-    - [Impractical E](Contents/Material/Part E - Data validation/Practical_E.html){target="_blank"}
-    - Data for the practical: [bands.txt](Contents/Material/Part E - Data validation/data/bands.txt){target="_blank"}, 
-      [unnamed.xls](Contents/Material/Part E - Data validation/data/unnamed.xls){target="_blank"},
-      [people.txt](Contents/Material/Part E - Data validation/data/people.txt),
-      [peoplerules.txt](Contents/Material/Part E - Data validation/data/peoplerules.txt),
-      [dirty_iris.txt](Contents/Material/Part E - Data validation/data/dirty_iris.txt)
-
-- Part F: Imputation
-
-    - [Lecture F](Contents/Material/Part F - Imputation/Lecture_F.html){target="_blank"}
-    - [Lecture F Handout](Contents/Material/Part F - Imputation/Lecture_F_handout.html){target="_blank"}
-    - [Practical F](Contents/Material/Part F - Imputation/Practical_F_walkthrough.html){target="_blank"}
-    - [Impractical F](Contents/Material/Part F - Imputation/Practical_F.html){target="_blank"}
-
-All lectures are in `html` format. Practicals are walkthrough files that guide you through the exercises. `Impractical` files contain the exercises, without walkthrough, explanations and solutions.
-
-## Column 2
-
-### Useful references
-- Data validation
-  - [An introduction to data cleaning with R](https://cran.r-project.org/doc/contrib/de_Jonge+van_der_Loo-Introduction_to_data_cleaning_with_R.pdf)
-  - [Mark van der Loo](http://www.markvanderloo.eu/) has given several talks and workshops on this, with slides available from his [GitHub](https://github.com/markvanderloo)
-- Imputation
-  - [Flexible Imputation of Missing Data](https://stefvanbuuren.name/fimd/): written by Stef van Buuren, uses the `mice` package. 
-  - [Applied Missing Data Analysis](https://bookdown.org/mwheymans/bookmi/): book on missing data and imputation in R and SPSS.
-  - [Visualization of Missingness Patterns](https://cran.r-project.org/web/packages/naniar/vignettes/naniar-visualisation.html): Tutorial for the naniar package that does nice visualizations of missingness patterns.
-  - [Tutorial](https://www.analyticsvidhya.com/blog/2016/03/tutorial-powerful-packages-imputing-missing-values/): Tutorial describing the use of 5 different R-packages for missing data imputation.
-  - [Tutorial](http://www.di.fc.ul.pt/~jpn/r/missing/index.html): Another tutorial on missing data in R.
-  - [Tutorial](https://github.com/gerkovink/miceVignettes): a set of tutorials for the `mice` package.
+- [add]()
 
 # Further studies
 
@@ -251,6 +220,7 @@ The following references are currently available for free, either as pdfs or as 
 - [Introduction to Statistical Learning](http://faculty.marshall.usc.edu/gareth-james/ISL/): an introductory book on statistical learning, with applications in R. The R code is somewhat old-style and you might be able to find newer packages for the tasks, but ths is a solid read well worth the effort.
 - [Data Analysis and Graphics Using R](http://www.pindex.com/uploads/post_docs/Maindonald%20Data%20Analysis%20and%20Graphics(PINDEX-DOC-6953).pdf): a detailed book that covers a lot about categorical data analysis and fitting `glm`s in `R`.
 - [Happy Git and GitHub for the useR ](https://happygitwithr.com/index.html): a great introduction to version control using Git and GitHub together with RStudio. Written by Jenny Bryan in a very concise style. Highly recommended!
+- [Tidyverse Cheat Sheets](https://rstudio.com/resources/cheatsheets/): a collection of excellent cheat sheets when using tidyverse functions. Highly recomendable!
 
 <!-- ## Column 2 -->
 
