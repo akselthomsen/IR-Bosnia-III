@@ -65,7 +65,7 @@ We adapt the course as we go. To ensure that you work with the latest iteration 
 
 ## Column 1
 
-###
+### Welcome
 
 Welcome to the third course.
 In general the requirements are the same, as for the two previous.
@@ -127,37 +127,20 @@ type `Yes` in the console and press the return key.
 
 - Part A: Repetition
 
-    - [Lecture A](Contents/Material/Part A - Repetition/Lecture_A.html){target="_blank"}
-    - [Lecture A Handout](Contents/Material/Part A - Repetition/Lecture_A_handout.html){target="_blank"}
-    - [Practical A](Contents/Material/Part A - Repetition/Practical_A_walkthrough.html){target="_blank"}
-    - [Impractical A](Contents/Material/Part A - Repetition/Practical_A.html){target="_blank"}
+    - [Lecture A](Contents/Material/Part C/Lecture.html){target="_blank"}
+    - [Exercise A](Contents/Material/Part C/Exercise.html){target="_blank"}
+    - [Solution A](Contents/Material/Part C/Exercise.html){target="_blank"}
 
+- Part B: Functional Programming
 
-- Part B: Statistical Inference
-
-    - [Lecture B](Contents/Material/Part B - Statistical inference/Lecture_B.html){target="_blank"}
-    - [Lecture B Handout](Contents/Material/Part B - Statistical inference/Lecture_B_handout.html){target="_blank"}
-    - [Practical B](Contents/Material/Part B - Statistical inference/Practical_B_walkthrough.html){target="_blank"}
-    - [Impractical B](Contents/Material/Part B - Statistical inference/Practical_B.html){target="_blank"}
-
-All lectures are in `html` format. Practicals are walkthrough files that guide you through the exercises. `Impractical` files contain the exercises, without walkthrough, explanations and solutions. 
+    - [Lecture B](Contents/Material/Part C/Lecture.html){target="_blank"}
+    - [Exercise B](Contents/Material/Part C/Exercise.html){target="_blank"}
+    - [Solution B](Contents/Material/Part C/Exercise.html){target="_blank"}
 
 ## Column 2
 
 ### Useful references
-- [The R project homepage](https://www.r-project.org/) 
-- [CRAN task view for official statistics](https://cran.r-project.org/web/views/OfficialStatistics.html)
-- [CRAN area for contributed documentation](https://cran.r-project.org/other-docs.html) No longer actively maintained, but a lot of good resources
-- Some places to find the `R` community:
-  - [#rstats hashtag](https://twitter.com/search?q=%23rstats)
-  - [Rweekly](https://rweekly.org/)
-  - [R-bloggers](https://www.r-bloggers.com/)
-  - [Stack Overflow](https://stackoverflow.com/) A good place to ask questions. Check if your question has been answered before, and make sure to phrase it carefully and correctly. 
-  
-- [Pipes in R](https://r4ds.had.co.nz/pipes.html)
-
-
-
+- [add]()
 
 
 # Tuesday
