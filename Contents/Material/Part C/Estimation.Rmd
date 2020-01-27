@@ -1,0 +1,477 @@
+---
+title: "Estimation"
+author: "Signe Hermann"
+date: "January 2020"
+output:
+  # html_document
+  ioslides_presentation:
+    css: style.css
+    logo: logo_en.png
+    transition: 0
+    keep_md: FALSE
+    self_contained: TRUE
+    fig_caption: yes
+---
+<!-- To allow for two column layout -->
+<style>
+.forceBreak { -webkit-column-break-after: always; break-after: column; }
+</style>
+
+## General approach
+
+* Overall planning of the survey
+* Define the population of interest
+* Constructing the sampling frame
+* Choice of sampling design
+* Selection of sample
+* Data collection
+* Data editing and imputation
+* Estimation
+* Dissemination
+
+## SRS and the HT-estimator
+
+* Assume a population with $N$ units and that the units have some quantitative attribute $y$
+* We seek to estimate the total sum of this attribute over the entire population:
+$$ \tau_y = \sum _{j=1}^N y_j$$
+* For this purpose we draw a sample of size $n$ by **simple random sampling** (SRS)
+* The inclusion probability $\pi$ for each unit is $n/N$
+
+## SSRS, Stratified Simple Random Sampling
+
+* A **stratification** is a subdivision of the population into different groups, called **strata**
+* Stratification allows for **different inclusion probabilities**, e.g. more large companies or more units that we know are unlikely to respond
+* In stratified simple random sampling with $H$ strata, the strata are usually written as $N_h, h = 1, \dots, H$, the number of units in each stratum is $n_h$, and their inclusion probabilities are $\pi_h = \frac{n_h}{N_h}$
+
+***
+
+* We can now estimate $\tau_y$ by applying the Horvitz-Thomson estimator
+* Every single observation from the sample is weighted by the inverse of the inclusion probability:
+
+$\hat{\tau}_y = \sum_{j=1}^n \frac{N}{n}y_j$ 
+
+or 
+
+$\hat{\tau}_y = \sum_{h=1}^H \sum_{j=1}^{n_h} \frac{N_h}{n_h}y_j$
+
+in case of stratified simple random sampling.
+
+***
+
+* The **variance** of $\hat{\tau}_y$ is given by
+
+$V(\hat{\tau}_y) = N^2 (1-\frac{n}{N}) \frac{\hat{s}^2}{n}$ 
+
+or 
+
+$V(\hat{\tau}_y) = \sum_{h = 1}^H N_h^2 (1-\frac{n_h}{N_n}) \frac{\hat{s}_h^2}{n_n}$
+
+in the case of stratified sampling.
+
+The factor $(1-\frac{n}{N})$ is the **finite population correction** --- this quantity can be ignored when the sampling fraction $\frac{n}{N}$ is very small.
+
+***
+
+The variance estimator $\hat{s}^2$ is an estimate for the variance of $y$ in the populationen $V(y) = \sigma^2$
+
+We normally estimate $s$ from the sample by the **standard deviation**
+
+$s = \sqrt{\frac{1}{n-1}\sum_{j=1}^{n}(y_i - \bar{y})^2}$
+
+or 
+
+$s = \sqrt{\sum_{h = 1}^H \frac{1}{n_h-1}\sum_{j=1}^{n_h}(y_i - \bar{y_h})^2}$
+
+in the case of stratified sampling.
+
+
+***
+* Normally we are more interested in the square root of the variance of the estimate --- this quantity is called the **standard error**
+
+* The standard error is conviniently measured on the same scale as the estimate
+
+* We can also calculate the **coefficient of variation** (or relative standard error)
+$$
+CV(\hat{\tau}) = \frac{s_\hat{\tau}}{\hat{\tau}}
+$$
+
+***
+
+If we want to estimate the mean $\mu$ of $y$ in the population, we simply divide by $N$, which yields
+
+$\hat{\mu}_y = \frac{1}{N} \hat{\tau}_y = \sum_{i=1}^n \frac{1}{n}y_i$ 
+
+or 
+
+$\hat{\mu}_y = \frac{1}{N} \sum_{h = 1}^H N_h \bar{y_h}$,
+
+in the case of stratified sampling
+
+This is simply the **sample mean**
+
+*** 
+
+Consequently the variance for the estimated mean can be found as
+
+$V(\hat{\mu}_y) = V(\frac{1}{N}\hat{\tau}_y) = \frac{1}{N^2}V(\hat{\tau}_y) = (1-\frac{n}{N}) \frac{\hat{s}^2}{n}$
+
+or 
+
+$V(\hat{\mu}_y) = \frac{1}{N^2} \sum_{h = 1}^H N_h^2 \large \left ( 1 - \frac{n_h}{N_h} \right ) \frac{s_h^2}{n_h}$
+
+in the case of stratified sampling.
+
+* Note that $CV(\hat{\tau}) = CV (\hat{\mu}_y)$
+
+***
+
+The formulas quickly get very complicated in the stratified case. Luckily, we do not have to do all these calculations by hand.
+
+One approach is to use the **survey** package written by Thomas Lumley (@tslumley).
+
+```{r message=FALSE, warning=FALSE}
+library(survey)
+
+load(file="mysample_prop.Rda")
+head(mysample_prop[,c(1,2,3,8,9,10)], n=5)
+```
+
+***
+* We can now create a **survey object** using the fuction `svydesign`
+* The object is created by describing the **survey design** and point to the **data**
+
+* The function **sampling::strata** that we used to draw the sample returns a vector called **Prob** which records the inclusion probabilities $\pi_i$ for each unit in the sample.
+* We use this vector to specify both weights (a design weight is $d_i = \frac{1}{\pi_i}$) and finite population correction. As we sampled half of the data (meaning that $\frac{n}{N}$ is large), this will reduce the standard error.
+
+***
+
+There are several ways of specifying the survey object, but this one allows for the finite population correction.
+
+First, create the design weights $d_i = \frac{1}{\pi_i} = \frac{N_h}{n_h}$ in our stratified case:
+
+```{r}
+mysample_prop$dwgt <- 1/mysample_prop$Prob
+````
+
+The the survey object:
+
+```{r}
+
+srs.design <- svydesign(ids=~1,
+                        strata=~stratum,
+                        weights=~dwgt,
+                        fpc = ~Prob,
+                        data=mysample_prop)
+```
+
+***
+* There is a summary method for the class of survey objects
+```{r}
+summary(srs.design)
+```
+
+* This is **very** usefull with more complicated designs
+
+## Estimation
+
+You can now estimate the total of turnover_2019 in a very simple way -- notice that the **standard error** is automatically reported as well
+```{r}
+Tohat <- svytotal(~turnover_2019, srs.design)
+Tohat
+```
+
+***
+
+The requested **confidence limits** can be derived using the standard error, but it is more convinient to use the function made specifically for this purpuse
+```{r}
+confint(Tohat, level=0.95)
+```
+
+As we have the actual data, we can compare with the estimate:
+
+```{r}
+load(file = "mydata_example.Rda")
+sum(mydata_example$turnover_2019)
+```
+
+It is well within the confidence limits.
+
+## Introduction to model assisted estimation {.columns-2}
+
+Sometimes we have **auxiliary information** available, ie. information $x$ known for both the sampled units but **also** at the population level $\tau_x$
+
+Trivial example: Export is a fixed ratio of the turnover
+
+$$
+\hat{\tau}_y^{ratio} = \frac{\tau_x}{\hat{\tau}_x^{HT}}\hat{\tau}_y^{HT}
+$$
+
+![](pics/Ratio.png){height=350px}
+
+## The regression estimate
+
+* The purpose of the regression estimate is to use an **auxiliary variable** $x$ to get a better estimate of our **variable of interest** $y$
+* **Better** means either
+    * smaller standard error
+    * or reduction of bias
+* One can show that the regression etimate may be thought of as an **adjusted** HT-estimate:
+
+$$
+\hat{\tau}_y^{GREG} = \hat{\tau}_y^{HT} + (\tau_x - \hat{\tau}_x)\hat{\beta}
+$$
+
+***
+
+* Assume we  know the **totals** of the auxiliary variable at the **population level**
+$$
+\tau_x = \sum_{i \in \mathcal{U}}x_i
+$$
+
+* We **could** also estimate these quantities from the sample applying the HT-estimator
+$$
+\hat{\tau}_x^{HT}=\sum_{i \in \mathcal{S}}d_i x_i
+$$
+
+  where $d_i$ is the design weight for sample unit $i$, ie. $\frac{1}{\pi _i}$
+
+* Hopefully $\hat{\tau}_x^{HT} \approx \tau_x$ but generally the two quantities will not be exactly equal
+
+***
+<!-- ## Calibration equation -->
+
+* In principle, this is unimportant, since we already know the true value
+
+* But since the design weight $d_i$ is also used for estimating totals for our variables of interest $y$, we must expect these to be a little off, too -- especially if $y$ and $x$ are correlated
+
+* Hence, we seek a **calibrated weight** $w_i$ such that the following calibration equation is satisfied
+$$
+\sum_{i \in \mathcal{S}} w_i x_i = \tau_x
+$$
+
+***
+<!-- ## Minimization and distance function -->
+
+ * The calibrated weights should ideally be close to the original design weights, so the calibrated weights are found as the solution to a **minimization** problem:
+$$
+\min \sum_{i \in \mathcal{S}} G(w_i,d_i) \quad \textrm{subject to} \quad \sum_{i \in \mathcal{S}} w_i x_i = \tau_x
+$$
+
+* $G$ is a function measuring the distance between the design weight and the calibrated weight -- for the regression estimate we use a quadratic distance function
+$$
+G(w,d) = \frac{(w-d)^2}{2d}
+$$
+
+***
+
+* Now the regression estimate for our variable of interest $y$ can simply be calculated as a weighted sum
+$$
+\hat{\tau}_y^{GREG} = \sum_{i \in \mathcal{S}} w_i y_i
+$$
+
+* The calibrated weight can be regarded as the design weight $d_i$ multiplied with a $g_i$-weight (a factor introducing individual corrections)
+$$
+w_i = g_i d_i \Rightarrow g_i = \frac{w_i}{d_i}
+$$
+
+* Always check the $g_i$-weights -- if there are **extreme values** check again what you are trying to accomplish with the calibration equations
+
+***
+
+* A third (and final) interpretation of the GREG-estimate (giving more prominence to an underlying linear model) is as the sum of predicted (or fitted) values for the entire population **plus** the design weighted residuals
+$$
+\hat{\tau}_y^{GREG} = \sum_{i \in \mathcal{U}} \hat{y}_i + \sum_{i \in \mathcal{S}} d_i (y_i - \hat{y}_i)
+$$
+
+* Calculating $V(\hat{\tau}_y^{GREG})$ involves approximation by Taylor expansion and is generally best left to some suitable package in R...
+
+
+## The regression estimate with R
+
+Luclike, the survey package can do regression estimates, too.
+
+We can use our register based employee information Nr_empl_reg or the turnover from last year, turnover_2019, to make regression estimates in our example.
+
+***
+
+We plot them against each other to see if there's a correlation:
+```{r}
+plot(mysample_prop$Nr_empl_reg, mysample_prop$Nr_empl_2020, col = "blue")
+
+```
+
+***
+
+Turnover has en even stronger correlation than number of employees:
+
+```{r}
+plot(mysample_prop$turnover_2019, mysample_prop$turnover_2020, col = "red")
+```
+
+
+
+
+```{r, echo = F}
+my.pop <- data.frame(id=1:10,
+                      x=c(99,111,114,95,110,102,94,83,96,102),
+                      y=c(647,654,674,637,664,653,644,625,654,647))
+
+s <- c(1,3,8)
+my.sample <- my.pop[s,]
+my.sample$N <- nrow(my.pop)
+
+library(survey)
+srs.svyobj <- svydesign(ids = ~1,
+                       fpc = ~N,
+                       data = my.sample)
+
+```
+
+***
+
+* We create a survey object from the optimal sample as well, and estimate both $\tau_x$ and $\tau_y$ using the `survey` package:
+
+```{r}
+
+load(file = "mysample_opt.Rda")
+
+mysample_opt$dwgt <- 1/mysample_opt$Prob
+
+srs.design.opt <- svydesign(ids=~1,
+                        strata=~stratum,
+                        weights=~dwgt,
+                        fpc = ~Prob,
+                        data=mysample_opt)
+```
+
+***
+It looks a little different from the proportional one:
+
+```{r}
+summary(srs.design.opt)
+
+```
+
+
+***
+```{r}
+(to20.hat <- svytotal(~turnover_2020, srs.design.opt))
+(to19.hat <- svytotal(~turnover_2019, srs.design.opt))
+```
+
+We calculate the actual figures for comparison:
+
+```{r, echo = F}
+
+sums <- c(sum(mydata_example$turnover_2019), 
+          sum(mydata_example$turnover_2020))
+names(sums) <- c("to2019", "to2020")
+
+sums
+```
+
+***
+* We now turn to calibration (the regression estimate) and start by setting up a target  consisting of the known population size and the known total of turnover_2019
+
+```{r}
+(cgoal <- c('(Intercept)'=nrow(mydata_example), 'turnover_2019'=sum(mydata_example$turnover_2019)))
+```
+
+* Don't worry too much about using named vectors -- it is just syntax...
+
+***
+* The calibration is done by an aptly named function
+```{r}
+cal.svyobj <- calibrate (srs.design,
+                         formula=~turnover_2019,
+                         population=cgoal)
+
+cal.svyobj.opt <- calibrate (srs.design.opt,
+                         formula=~turnover_2019,
+                         population=cgoal)
+```
+
+***
+
+We use the new survey object to calculate a regression estimate of turnover_2019, although the result is known by definition in advance
+
+```{r}
+(to19.cal <- svytotal (~turnover_2019, cal.svyobj))
+
+(to19.cal.opt <- svytotal (~turnover_2019, cal.svyobj.opt))
+```
+
+*** 
+* More interesting, we calculate the regression estimate of turnover_2020
+
+* Now, we see the benefit of the optimal allocation - the standard error of the proportional allocation is almost twice as big as for the optimal allocation!
+
+```{r}
+(to20.cal <- svytotal (~turnover_2020, cal.svyobj))
+
+(to20.cal.opt <- svytotal (~turnover_2020, cal.svyobj.opt))
+```
+
+
+***
+* We can get the calibrated weight (and also the $g_i$-weights) to gain some insight
+
+```{r}
+
+mysample_opt$cw <- weights(cal.svyobj.opt)
+mysample_prop$cw <- weights(cal.svyobj)
+
+mysample_opt$gw <- mysample_opt$cw / mysample_opt$dw
+mysample_prop$gw <- mysample_prop$cw / mysample_prop$dw
+
+
+```
+
+***
+
+Always remember to check your $g_i$'s - we want them to be close to 1, meaning that we haven't changed the survey design too much.
+
+The $g_i$'s from the proportional allocation are quite nice:
+
+```{r, echo = F}
+
+hist(mysample_prop$gw, col = "red", xlim = c(0.94,1.03))
+
+```
+
+***
+
+But again, the optimal allocation is even better:
+
+
+```{r}
+
+hist(mysample_opt$gw, col = "orange", xlim = c(0.998, 1.003))
+
+```
+
+
+***
+
+* Also note the following proporties
+
+```{r}
+sum(mysample_opt$dwgt)
+sum(mysample_opt$cw)
+mean(mysample_opt$gw)
+```
+
+***
+
+One final comparison between proportional and optimal allocation:
+
+```{r}
+
+cv(to20.cal)
+
+cv(to20.cal.opt)
+
+
+```
+
+I suppose it's becoming clear why we call it optimal allocation!
+

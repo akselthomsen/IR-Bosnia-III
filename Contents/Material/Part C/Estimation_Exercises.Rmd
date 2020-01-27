@@ -1,0 +1,75 @@
+---
+title: "Estimation Exercises"
+author: "Signe Hermann"
+date: "January 2020"
+output:
+  # html_document
+  ioslides_presentation:
+    css: style.css
+    logo: logo_en.png
+    transition: 0
+    keep_md: FALSE
+    self_contained: TRUE
+    fig_caption: yes
+---
+<!-- To allow for two column layout -->
+<style>
+.forceBreak { -webkit-column-break-after: always; break-after: column; }
+</style>
+
+## Exercise 1 (optional)
+
+This exercise is for those wishing to understand stratified estimation a bit better. It is to be calculated by hand (or using R, a spreadsheet or a calculator). Note: You might have to round up or down. Consider this (very small) population:
+
+![](pics/FourStrata.png){width=55%}
+
+***
+
+Each stratum has 12 units, i.e. $N = 48, N_1 = N_2 = N_3 = N_4 = 12$
+
+And we have that:
+
+$n_1 = 6$,
+$n_2 = 4$,
+$n_3 = 3$,
+$n_2 = 2$,
+
+The units drawn satisfy (for ease of computation):
+
+$y_1 = y_{1_1} =y_{1_2} = y_{1_3} = y_{1_4} = y_{1_5}=y_{1_6} = 4$,
+$y_2 = y_{2_1} =y_{2_2} = y_{2_3} = y_{2_4} = 6$,              
+$y_3 = y_{3_1} =y_{3_2} = y_{3_3} = 8$,   
+$y_4 = y_{4_1} =y_{4_2} = 12$.
+
+Calculate an estimate of the population total $\hat{t}_y = \sum_{i = 1}^4 \sum_{j=1}^{n_i} d_i y_{i_j}$
+
+## Exercise 2
+
+Use the dataset **mydata_estimation**.
+
+Given your proportional sample from last session, calculate a direct and a calibrated estimate of the number of emnployees in 2020. Use Nr_empl_reg for calibration. 
+
+Dont'r forget to check your $g_i$'s.
+
+What is the ratio of the standard error of the proportional estimator to the standard error of the calibrated estimator?
+
+
+## Exercise 3
+
+Repeat exercise 2 for the optimal sample.
+
+In which case do you gain most from calibrating (i.e. in which case - proportional or optimal - do you have the largest ratio)?
+
+## Exercise 4
+
+Calculate the means of Nr_empl_reg (corresponding to number of employees in 2019), Nr_empl_2020, turnover_2019 and turnover_2020.
+
+**Hint: The function svymean(~x, my_syvobject) will give you the mean of variable x from the survey object my_svyobject)**
+
+Which mean has changed most percenbtage-wise from 2019 to 2020?
+
+
+
+
+
+
