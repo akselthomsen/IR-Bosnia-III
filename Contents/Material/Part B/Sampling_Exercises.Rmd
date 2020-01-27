@@ -1,0 +1,68 @@
+---
+title: "Sampling Exercises"
+author: "Signe Hermann"
+date: "January 2020"
+output:
+  # html_document
+  ioslides_presentation:
+    css: style.css
+    logo: logo_en.png
+    transition: 0
+    keep_md: FALSE
+    self_contained: TRUE
+    fig_caption: yes
+---
+<!-- To allow for two column layout -->
+<style>
+.forceBreak { -webkit-column-break-after: always; break-after: column; }
+</style>
+
+***
+
+**Exercise 1 (Optional)**
+
+This exercise is for those wishing to understand stratified allocation a bit better. It is to be calculated by hand (or using R, a spreadsheet or a calculator). Note: You might have to round up or down. Consider this (very small) population:
+
+![](pics/Strata.png){width=55%}
+
+***
+
+* Let $n = 24$ 
+
+1. Proportionally allocate a sample of size $n$. Recall that for proportional allocation, $n_h = n \cdot\frac{N_h}{\sum_{h = 1}^H N_h}$.
+
+2. Given the standard errors $s_1 = 1, s_2 = 8, s_3  = 3, s_4 = 9$ for some variable of interest, optimally allocate a sample of size $n$. Recall that for optimal (Neyman) allocation, $n_h = n \cdot \frac{N_h s_h}{\sum_{h = 1}^H N_h s_h}$
+
+## Exercise 2
+
+* Using the data frame **mydata_estimation.Rda**,
+
+1. Stratify by region and sector as in the presentation
+2. Proprotionally allocate a sample of size $n = 2000$
+3. Save your sample for later use
+
+## Exercise 3
+
+* Using the data frame **mydata_estimation.Rda**
+
+1. Stratify by sector and number of employees $E$ in 3 size groups: 
+
+    $E \leq 100$, 
+    $100 < E \leq 500$, 
+    $500 < E$
+    
+2. Optimally allocate a sample of size $n = 2500$
+3. Correct your allocation if needed
+4. Save your sample for later use
+
+## Exercise 4
+
+* Using the data frame **mydata_estimation.Rda**
+
+1. Stratify by sector and region
+2. Weighted proportionally allocate a sample of size $n = 3000$ by $\frac{1}{3} \cdot$ number of employees $+ \frac{2}{3} \cdot$ turnover (i.e. you need two proportional allocations and then add them using the weights $\frac{1}{3}$ and $\frac{2}{3}$)
+3. Correct your allocation if needed
+4. Save your sample for later use
+
+
+

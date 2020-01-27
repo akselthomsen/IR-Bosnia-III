@@ -134,12 +134,15 @@ type `Yes` in the console and press the return key.
        - [mtcars5.csv](Contents/Material/Part A/mtcars5.csv){target="_blank"}
        - [mtcars5.xlsx](Contents/Material/Part A/mtcars5.xlsx){target="_blank"}
     
-
 - Part B: Sampling
 
-    - [Lecture C](Contents/Material/Part B/Sampling.html){target="_blank"}
-    - [Exercise C](Contents/Material/Part B/Sampling_Exercises.html){target="_blank"}
-    - [Solution C](Contents/Material/Part B/Sampling_Exercises.html){target="_blank"}
+    - [Lecture B](Contents/Material/Part B/Sampling.html){target="_blank"}
+    - [Exercise B](Contents/Material/Part B/Sampling_Exercises.html){target="_blank"}
+    - [Solution B](Contents/Material/Part B/Sampling_Exercises.html){target="_blank"}
+    - Data:
+       - [mydata_example.Rda](Contents/Material/Part B/mydata_example.Rda){target="_blank"}
+       - [mysample_opt.Rda](Contents/Material/Part B/mysample_opt.Rda){target="_blank"}
+       - [mysample_prop.Rda](Contents/Material/Part B/mysample_prop.Rda){target="_blank"}
     
 - Part C: Estimation and calibration
 
