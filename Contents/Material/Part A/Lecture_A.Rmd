@@ -1,5 +1,5 @@
 ---
-title: "Introduction & Repetition"
+title: "Intro & Repetition"
 author: "Aksel Thomsen"
 date: "Statistical Programming with R"
 output:
@@ -56,7 +56,7 @@ output:
 ## Functions for tomorrow
 
 - `aggregate`: Summarise data
-- `cut`: Divide data
+- `cut`: Divide variables
 
 ## Aggregate
 
@@ -83,12 +83,21 @@ aggregate(x ~ group, data = df, FUN = sum)
 - Recodes numeric to factor
 
 ```{r}
-
 x = runif(n = 10, min = 0, max = 1)
 x
-
-cut(x = x, breaks = c(0,0.25,0.75,1))
 ```
+
+## Cut
+
+- Divides the range
+- Recodes numeric to factor
+
+```{r}
+y <- cut(x = x, breaks = c(0,0.25,0.75,1))
+y
+table(y)
+```
+
 
 # R objects
 
@@ -96,19 +105,110 @@ cut(x = x, breaks = c(0,0.25,0.75,1))
 
 ## What is it?
 
-- From Rstudio: https://www.tidyverse.org/
+- From Rstudio: [tidyverse.org](https://www.tidyverse.org/)
 - Common (and opinionated) collection of packages
 - Pipes
 - `dplyr`
 - `tibbles`
 - `ggplot2`
+- And more
+
+```{r, message=FALSE}
+library(tidyverse)
+```
+
+## Piping
+
+- Easier to read for humans
+- Alternative to nested functions calls
+- Most important one: `%>%`
+- LHS is the first argument to RHS
+
+## Piping - Example
+
+- Bad:
+
+```{r, eval=FALSE}
+summarise(group_by(mtcars,am), hp = mean(hp))
+```
+
+- Good:
+
+```{r}
+mtcars %>% 
+  group_by(am) %>% 
+  summarise(hp = mean(hp))
+```
+
+## Dplyr verbs
+
+- Transforming `data.frames`
+- Datatransformation [Cheat Sheet](https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf)
+  - `select`
+  - `filter`
+  - `mutate`
+  - `group_by`
+  - `summarise`
+- Joins
+  - `left_join`
+  - `right_join`
+  - `full_join`
+
+## Tibbles
+
+- Rethinking of the base `data.frame`
+- More restrictive
+- More "tidy"
+- No rownames
+- Much better default print method
+- (why i would recommend it)
+- Look into the `tidyr` package
+- Check out the [Data Import Cheat Sheet](https://github.com/rstudio/cheatsheets/raw/master/data-import.pdf)
+
+## Tibbles
+
+- Normal `data.frame`
+
+```{r}
+mtcars
+```
+
+## Tibbles
+
+- When it is a `tibble`:
+
+```{r}
+as_tibble(mtcars)
+```
+
+## Tibbles
+
+- A bit of wrangling with `tidyr`:
+
+```{r, eval=FALSE}
+mtcars %>% 
+  rownames_to_column(var = "car") %>% 
+  as_tibble()
+```
+
+```{r, echo=FALSE}
+mtcars %>% 
+  rownames_to_column(var = "car") %>% 
+  as_tibble() %>% 
+  print(n = 5)
+```
+
+## ggplot2
+
+
 
 # Importing data into R
 
 ## Very common task
 
 - Native object class for data is the `data.frame`
-- But data is always from somewhere else
+- Import/export through `.RData` or `.rds` files
+- But data is almost always from somewhere else
 - Most commonly: CSV & Excel files
 - But also supprt for other formats: SAS, SPSS and many more
 
