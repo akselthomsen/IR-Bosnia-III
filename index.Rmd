@@ -155,7 +155,8 @@ type `Yes` in the console and press the return key.
 
     - [Lecture D](Contents/Material/Part C/Estimation.html){target="_blank"}
     - [Exercise D](Contents/Material/Part C/Estimation_Exercises.html){target="_blank"}
-    - [Solution D](Contents/Material/Part C/Estimation_Exercises.html){target="_blank"}    
+    - [Solution D](Contents/Material/Part C/Estimation_Exercises.html){target="_blank"}
+    - Data: Reuse from Part B
 
 ## Column 2
 
