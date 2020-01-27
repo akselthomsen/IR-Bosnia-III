@@ -127,9 +127,9 @@ type `Yes` in the console and press the return key.
 
 - Part A: Repetition
 
-    - [Lecture A](Contents/Material/Part C/Lecture.html){target="_blank"}
-    - [Exercise A](Contents/Material/Part C/Exercise.html){target="_blank"}
-    - [Solution A](Contents/Material/Part C/Exercise.html){target="_blank"}
+    - [Lecture A](Contents/Material/Part A/Lecture_A.html){target="_blank"}
+    - [Exercise A](Contents/Material/Part A/Exercise.html){target="_blank"}
+    - [Solution A](Contents/Material/Part A/Exercise.html){target="_blank"}
 
 - Part B: Functional Programming
 
