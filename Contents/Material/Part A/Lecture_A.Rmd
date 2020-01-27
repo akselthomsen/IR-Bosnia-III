@@ -12,22 +12,24 @@ output:
 
 # Welcome
 
-## Revised programme {.smaller}
+## Provisional programme {.smaller}
 
-| **Day**   |  **Time**     | **Purpose/Details** | **Material** | **Lecturer** | 
-|-----------|---------------|---------------------|--------------|--------------|
-| Monday    | 15:00 - 16:00 | Repetition                          | A | Aksel   |
-| Tuesday   | 9:00 - 12:00  | Sampling                            | B | Signe   |
-|           | 13:00 - 15:30 | Estimation and calibration          | C | Signe   |
-| Wednesday | 9:00 - 12:00  | Functional programmering            | D | Aksel   |
-|           | 13:00 - 15:30 | Prepare and analyse large data      | E | Aksel   |
-| Thursday  | 9:00 -  XX:XX | Further work with large data        | F | Aksel   |
+| **Day**   |  **Time**     | **Purpose/Details** | **Material**          | **Lecturer** | 
+|-----------|---------------|---------------------|-----------------------|--------------|
+| Tuesday   | 09.00 - 10.30 | Intro & Repetition                      | A | Aksel   |
+|           | 10.30 - 12:00 | Sampling                                | B | Signe   |
+|           | 13:00 - 15:30 | Sampling *continued*                    | B | Signe   |
+|           | 13:00 - 15:30 | Estimation and calibration              | C | Signe   |
+| Wednesday | 09:00 - 12:00 | Estimation and calibration *continued*  | D | Aksel   |
+|           | 09:00 - 12:00 | Functional programmering                | D | Aksel   |
+|           | 13:00 - 15:30 | Prepare and analyse large data          | E | Aksel   |
+| Thursday  | 09:00 - 12:00 | Further work with large data            | F | Aksel   |
 
 ## Format
 - Same as the last courses
 - Lectures followed by practicals
-- Materials are on the homepage
-  - "Impracticals" are the versions without solutions, "Practicals" the ones with
+- Materials are on the [homepage](https://akselthomsen.github.io/IR-Bosnia-III/)
+- Including execises, solutions and data
 - Please do ask questions!
 
 ## Repitition
@@ -100,7 +102,43 @@ table(y)
 
 # R objects
 
-## 
+## Objects and classes
+
+- Many more exists!
+- Everyone can define a new object class
+- Statistical packages and functions often have their own objects
+
+## Example 1
+
+- `table` object
+
+```{r}
+x <- sample(x = 1:2, size = 50, replace = TRUE)
+table(x)
+class(table(x))
+```
+
+
+## Example 2
+
+- `lm` object
+
+```{r}
+x <- rnorm(n = 100, mean = 1, sd = 1)
+y <- 2 + 3 * x + rnorm(n = 100, mean = 0, sd = 0.5) 
+
+linear_model <- lm(formula = y ~ x)
+class(linear_model)
+linear_model
+```
+
+## Example 2
+
+- Also own summary method
+
+```{r}
+summary(linear_model)
+```
 
 # Into the Tidyverse
 
@@ -158,6 +196,7 @@ mtcars %>%
 ## Tibbles
 
 - Rethinking of the base `data.frame`
+- New object class
 - More restrictive
 - More "tidy"
 - No rownames
@@ -316,3 +355,4 @@ getNamespaceExports("haven") %>%
   cat()
 ```
 
+# Done for now

@@ -32,9 +32,9 @@ Part of the material for this course is adapted from [Gerko Vink](https://github
 
 This follow-up course deals with the following topics:
 
-1. Functional programming
 1. Sampling
 1. Estimation and calibration
+1. Functional programming
 1. Preparing large data for analysis
 1. Analysis of large data
 
@@ -44,22 +44,23 @@ We adapt the course as we go. To ensure that you work with the latest iteration 
 
 ## Column 2
 
-### Course schedule 
+### Course schedule (provisional)
 
 | Time        | Topic                                           |
 |:------------|:------------------------------------------------|
-| *Monday*    |                                                 |
-| 09.00-12.00 | Repetition (A)                                  |
-|             | *Break*                                         |    
-| 13.00-15.30 | Functional programming (B)                      |
 | *Tuesday*   |                                                 |
-| 09.00-12.00 | Sampling (C)                                    |
-|             | *Break*                                         |             
-| 13.00-15.30 | Estimation and calibration (D)                  |
+| 09.00-10.30 | Intro & Repetition (A)                          |
+| 10.30-12.00 | Sampling (B)                                    |
+|             | Break                                           |    
+| 13.00-15.30 | Sampling *continued*                            |
+|             | Estimation and calibration (C)                  |
 | *Wednesday* |                                                 |
-| 09.00-12.00 | Preparing large data for analysis (E)           |
-|             | *Break*                                         |
-| 13.00-15.30 | Analysis of large data (F)                      |
+| 09.00-12.00 | Estimation and calibration *continued*          |
+|             | Functional Programming (D)                      |
+|             | *Break*                                         |             
+| 13.00-15.30 | Preparing large data for analysis (E)           |
+| *Thursday*  |                                                 |
+| 09.00-12.00 | Analysis of large data (F)                      |
 
 # How to prepare
 
@@ -119,52 +120,38 @@ compilation? (Yes/no/cancel)
 
 type `Yes` in the console and press the return key. 
 
-# Monday
-
-## Column 1
-
-### Mondays's materials
-
-- Part A: Repetition
-
-    - [Lecture A](Contents/Material/Part A/Lecture_A.html){target="_blank"}
-    - [Exercise A](Contents/Material/Part A/Exercise.html){target="_blank"}
-    - [Solution A](Contents/Material/Part A/Exercise.html){target="_blank"}
-
-- Part B: Functional Programming
-
-    - [Lecture B](Contents/Material/Part C/Lecture.html){target="_blank"}
-    - [Exercise B](Contents/Material/Part C/Exercise.html){target="_blank"}
-    - [Solution B](Contents/Material/Part C/Exercise.html){target="_blank"}
-
-## Column 2
-
-### Useful references
-- [add]()
-
-
 # Tuesday
 
 ## Column 1
 
 ### Tuesday's materials
 
-- Part C: Sampling
+- Part A: Repetition
 
-    - [Lecture C](Contents/Material/Part C/Sampling.html){target="_blank"}
-    - [Exercise C](Contents/Material/Part C/Sampling_Exercises.html){target="_blank"}
-    - [Solution C](Contents/Material/Part C/Sampling_Exercises.html){target="_blank"}
-       
-- Part D: Estimation and calibration
+    - [Lecture A](Contents/Material/Part A/Lecture_A.html){target="_blank"}
+    - Data:
+       - [mtcars.rds](Contents/Material/Part A/mtcars.rds){target="_blank"}
+       - [mtcars5.csv](Contents/Material/Part A/mtcars5.csv){target="_blank"}
+       - [mtcars5.xlsx](Contents/Material/Part A/mtcars5.xlsx){target="_blank"}
+    
 
-    - [Lecture D](Contents/Material/Part D/Estimation.html){target="_blank"}
-    - [Exercise D](Contents/Material/Part D/Estimation_Exercises.html){target="_blank"}
-    - [Solution D](Contents/Material/Part D/Estimation_Exercises.html){target="_blank"}
+- Part B: Sampling
+
+    - [Lecture C](Contents/Material/Part B/Sampling.html){target="_blank"}
+    - [Exercise C](Contents/Material/Part B/Sampling_Exercises.html){target="_blank"}
+    - [Solution C](Contents/Material/Part B/Sampling_Exercises.html){target="_blank"}
+    
+- Part C: Estimation and calibration
+
+    - [Lecture D](Contents/Material/Part C/Estimation.html){target="_blank"}
+    - [Exercise D](Contents/Material/Part C/Estimation_Exercises.html){target="_blank"}
+    - [Solution D](Contents/Material/Part C/Estimation_Exercises.html){target="_blank"}    
 
 ## Column 2
 
 ### Useful references
-- [add]()
+- [tidyverse.com](https://www.tidyverse.org/)
+- [RStudio Cheat Sheets](https://rstudio.com/resources/cheatsheets/)
 
 # Wednesday
 
@@ -172,11 +159,28 @@ type `Yes` in the console and press the return key.
 
 ### Wednesday's materials
 
+- Part D: Functional Programming
+
+    - [Lecture E](Contents/Material/Part D/Lecture.html){target="_blank"}
+    - [Exercise E](Contents/Material/Part D/Exercise.html){target="_blank"}
+    - [Solution E](Contents/Material/Part D/Exercise.html){target="_blank"}
+
 - Part E: Preparing large data for analysis
 
     - [Lecture E](Contents/Material/Part E/Lecture.html){target="_blank"}
     - [Exercise E](Contents/Material/Part E/Exercise.html){target="_blank"}
     - [Solution E](Contents/Material/Part E/Exercise.html){target="_blank"}
+
+## Column 2
+
+### Useful references
+- [add]()
+
+# Thursday
+
+## Column 1
+
+### Thursdays's materials
 
 - Part F: Analysis of large data
 
