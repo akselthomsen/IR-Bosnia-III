@@ -98,8 +98,9 @@ y
 table(y)
 ```
 
-
 # R objects
+
+## 
 
 # Into the Tidyverse
 
@@ -185,22 +186,37 @@ as_tibble(mtcars)
 
 - A bit of wrangling with `tidyr`:
 
-```{r, eval=FALSE}
-mtcars %>% 
-  rownames_to_column(var = "car") %>% 
-  as_tibble()
-```
-
-```{r, echo=FALSE}
+```{r}
 mtcars %>% 
   rownames_to_column(var = "car") %>% 
   as_tibble() %>% 
-  print(n = 5)
+  print(n = 5, width = 50)
 ```
 
 ## ggplot2
 
+- Very good graphic package
+- Grammar of grapics
+- RStudio again
+- [Reference guide](https://github.com/rstudio/cheatsheets/raw/master/data-import.pdf)
+- [Cheat Sheet](https://github.com/rstudio/cheatsheets/raw/master/data-import.pdf)
 
+## Example 1
+
+```{r}
+ggplot(data = mtcars,
+       mapping = aes(x = wt, y = hp)) +
+  geom_point()
+```
+
+## Example 2
+
+```{r}
+ggplot(data = mtcars,
+       mapping = aes(x = wt, y = hp, colour = as.factor(am))) +
+  geom_point() +
+  theme_minimal()
+```
 
 # Importing data into R
 
@@ -211,6 +227,18 @@ mtcars %>%
 - But data is almost always from somewhere else
 - Most commonly: CSV & Excel files
 - But also supprt for other formats: SAS, SPSS and many more
+
+## Standard R data
+
+```{r}
+df1 <- mtcars
+
+saveRDS(object =df1, file = "mtcars.rds")
+
+df2 <- readRDS(file = "mtcars.rds")
+
+all_equal(df1,df2)
+```
 
 ## Importing CSV
 
