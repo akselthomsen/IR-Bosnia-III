@@ -139,10 +139,17 @@ type `Yes` in the console and press the return key.
     - [Lecture B](Contents/Material/Part B/Sampling.html){target="_blank"}
     - [Exercise B](Contents/Material/Part B/Sampling_Exercises.html){target="_blank"}
     - [Solution B](Contents/Material/Part B/Sampling_Exercises.html){target="_blank"}
-    - Data:
-       - [mydata_example.Rda](Contents/Material/Part B/mydata_example.Rda){target="_blank"}
-       - [mysample_opt.Rda](Contents/Material/Part B/mysample_opt.Rda){target="_blank"}
-       - [mysample_prop.Rda](Contents/Material/Part B/mysample_prop.Rda){target="_blank"}
+    - Data 
+       - Lecture:
+          - [mydata_example.Rda](Contents/Material/Part B/mydata_example.Rda){target="_blank"}
+          - [mysample_opt.Rda](Contents/Material/Part B/mysample_opt.Rda){target="_blank"}
+          - [mysample_prop.Rda](Contents/Material/Part B/mysample_prop.Rda){target="_blank"}
+       - Exercise:
+          - [mydata_estimation.Rda](Contents/Material/Part B/mydata_estimation.Rda){target="_blank"}
+       - Solution:
+          - [mysampopt.Rda](Contents/Material/Part B/mysampopt.Rda){target="_blank"}
+          - [mysampprop.Rda](Contents/Material/Part B/mysampprop.Rda){target="_blank"}
+          - [mysampweigh.Rda](Contents/Material/Part B/mysampweigh.Rda){target="_blank"}
     
 - Part C: Estimation and calibration
 
