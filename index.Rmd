@@ -138,7 +138,7 @@ type `Yes` in the console and press the return key.
 
     - [Lecture B](Contents/Material/Part B/Sampling.html){target="_blank"}
     - [Exercise B](Contents/Material/Part B/Sampling_Exercises.html){target="_blank"}
-    - [Solution B](Contents/Material/Part B/Sampling_Exercises.html){target="_blank"}
+    - [Solution B](Contents/Material/Part B/Sampling_Exercises_Solutions.html){target="_blank"}
     - Data 
        - Lecture:
           - [mydata_example.Rda](Contents/Material/Part B/mydata_example.Rda){target="_blank"}
