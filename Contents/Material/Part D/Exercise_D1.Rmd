@@ -1,0 +1,37 @@
+---
+title: "Functional Programming - Exercises 1"
+author: "Aksel Thomsen"
+date: "Statistical Programming with R"
+output: html_document
+---
+
+## Problem 1
+
+Create your own function to calculate the cummulative sum of a vector.
+For inspiration the base R function `cumsum` works like this:
+
+```{r}
+x <- 1:10
+x
+cumsum(x)
+```
+
+The function should return the same.
+
+## Problem 2
+
+Make a function that given two inputs of numeric vectors returns the parwise mean.
+E.g. the following input:
+
+```{r}
+(x <- c(1,5,9))
+(y <- c(2,4,0))
+```
+
+Should return:
+
+```{r}
+c(1.5,4.5,4.5)
+```
+
+## Problem 3

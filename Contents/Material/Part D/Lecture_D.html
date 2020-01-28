@@ -3142,9 +3142,9 @@ slide:not(.current) .plotly.html-widget{
           </hgroup>
   </slide>
 
-<slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Functional Programming</h2></hgroup><article  id="functional-programming">
+<slide class=""><hgroup><h2>Plan</h2></hgroup><article  id="plan">
 
-</article></slide><slide class=""><hgroup><h2>Plan</h2></hgroup><article  id="plan">
+<p>A bit was pushed from the recap yesterday.</p>
 
 <ol>
 <li>Functions</li>
@@ -3158,19 +3158,183 @@ slide:not(.current) .plotly.html-widget{
 <li>Exercises again</li>
 </ol>
 
-</article></slide><slide class=""><hgroup><h2>Functions</h2></hgroup><article  id="functions">
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Functions</h2></hgroup><article  id="functions">
 
-</article></slide><slide class=""><hgroup><h2>Loops and indexes</h2></hgroup><article  id="loops-and-indexes">
+</article></slide><slide class=""><hgroup><h2>Functions in general</h2></hgroup><article  id="functions-in-general">
 
-</article></slide><slide class=""><hgroup><h2>Purrr and map</h2></hgroup><article  id="purrr-and-map">
+<ul>
+<li>The backbone of R and all packages</li>
+<li>Make your own</li>
+<li>Complicated code &amp; reusable?</li>
+<li>Make it a function</li>
+<li>Remember: Good naming and pipe friendliness</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Existing functions</h2></hgroup><article  id="existing-functions">
+
+<pre class = 'prettyprint lang-r'>min</pre>
+
+<pre >## function (..., na.rm = FALSE)  .Primitive(&quot;min&quot;)</pre>
+
+<pre class = 'prettyprint lang-r'>survey::svydesign</pre>
+
+<pre >## function (ids, probs = NULL, strata = NULL, variables = NULL, 
+##     fpc = NULL, data = NULL, nest = FALSE, check.strata = !nest, 
+##     weights = NULL, pps = FALSE, ...) 
+## {
+##     UseMethod(&quot;svydesign&quot;, data)
+## }
+## &lt;bytecode: 0x000000001313efb8&gt;
+## &lt;environment: namespace:survey&gt;</pre>
+
+<pre class = 'prettyprint lang-r'>`%in%`</pre>
+
+<pre >## function (x, table) 
+## match(x, table, nomatch = 0L) &gt; 0L
+## &lt;bytecode: 0x0000000012eeec88&gt;
+## &lt;environment: namespace:base&gt;</pre>
+
+</article></slide><slide class=""><hgroup><h2>Make your own</h2></hgroup><article  id="make-your-own">
+
+<ol>
+<li>Name function</li>
+<li>Name input</li>
+<li>Calculate output</li>
+<li>Explicit return output</li>
+</ol>
+
+<pre class = 'prettyprint lang-r'>my_function &lt;- function(my_arguments){
+  my_calculations
+  return(my_return)
+}</pre>
+
+</article></slide><slide class=""><hgroup><h2>Example</h2></hgroup><article  id="example">
+
+<ul>
+<li>Function that squares its input</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>squared &lt;- function(x){
+  y &lt;- x^2
+  return(y)
+}
+
+squared(x = 1:3)</pre>
+
+<pre >## [1] 1 4 9</pre>
+
+</article></slide><slide class=""><hgroup><h2>Example - check input</h2></hgroup><article  id="example---check-input">
+
+<pre class = 'prettyprint lang-r'>squared(&quot;A&quot;)</pre>
+
+<pre >## Error in x^2: non-numeric argument to binary operator</pre>
+
+<pre class = 'prettyprint lang-r'>squared_new &lt;- function(x){
+  stopifnot(is.numeric(x))
+  y &lt;- x^2
+  return(y)
+}</pre>
+
+</article></slide><slide class=""><hgroup><h2>Example - check input</h2></hgroup><article  id="example---check-input-1">
+
+<pre class = 'prettyprint lang-r'>squared_new(&quot;A&quot;)</pre>
+
+<pre >## Error in squared_new(&quot;A&quot;): is.numeric(x) is not TRUE</pre>
+
+<pre class = 'prettyprint lang-r'>squared_new(1:3)</pre>
+
+<pre >## [1] 1 4 9</pre>
+
+</article></slide><slide class=""><hgroup><h2>Example - several inputs</h2></hgroup><article  id="example---several-inputs">
+
+<pre class = 'prettyprint lang-r'>new_function &lt;- function(x,y,z){
+  out &lt;- (x + y)/z
+  return(out)
+}
+
+new_function(
+  x = c(1,2,10),
+  y = c(4,7,9),
+  z = c(8,10,2)
+)</pre>
+
+<pre >## [1] 0.625 0.900 9.500</pre>
+
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Loops and indexes</h2></hgroup><article  id="loops-and-indexes">
+
+</article></slide><slide class=""><hgroup><h2>Loops</h2></hgroup><article  id="loops">
+
+</article></slide><slide class=""><hgroup><h2>Indexes</h2></hgroup><article  id="indexes">
+
+<ul>
+<li>Two different ways to index</li>
+<li>Imagine a long train:</li>
+<li><code>[]</code>: Selects which cars you are intered in</li>
+<li><code>[[]]</code>: Selects whats <strong>inside</strong> the chosen car</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Indexes - Example</h2></hgroup><article  id="indexes---example">
+
+<pre class = 'prettyprint lang-r'>x &lt;- list(a = 1, b = &quot;F&quot;, c = c(1,2))
+x</pre>
+
+<pre >## $a
+## [1] 1
+## 
+## $b
+## [1] &quot;F&quot;
+## 
+## $c
+## [1] 1 2</pre>
+
+</article></slide><slide class=""><hgroup><h2>Indexes - Example</h2></hgroup><article  id="indexes---example-1">
+
+<ul>
+<li>Want the two first elements</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>x[1:2] # By element number
+x[c(TRUE,TRUE,FALSE)] # Logical for each element
+x[-3] # By excluding unwanted element</pre>
+
+<pre >## $a
+## [1] 1
+## 
+## $b
+## [1] &quot;F&quot;</pre>
+
+<ul>
+<li>Names are kept</li>
+<li>Return is still a <code>list</code></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Indexes - Example</h2></hgroup><article  id="indexes---example-2">
+
+<ul>
+<li>I only want the 3rd element</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>x[[3]]</pre>
+
+<pre >## [1] 1 2</pre>
+
+<ul>
+<li>No longer a list!</li>
+</ul>
+
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Purrr and map</h2></hgroup><article  id="purrr-and-map">
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Exercises</h2></hgroup><article  id="exercises">
 
-</article></slide><slide class=""><hgroup><h2>Split, apply, combine</h2></hgroup><article  id="split-apply-combine">
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Split, apply, combine</h2></hgroup><article  id="split-apply-combine">
 
-</article></slide><slide class=""><hgroup><h2>Nested data and lists</h2></hgroup><article  id="nested-data-and-lists">
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Nested data and lists</h2></hgroup><article  id="nested-data-and-lists">
 
-</article></slide><slide class=""><hgroup><h2>Use case</h2></hgroup><article  id="use-case"></article></slide>
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Use case</h2></hgroup><article  id="use-case">
+
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Exercises again</h2></hgroup><article  id="exercises-again">
+
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Done</h2></hgroup><article  id="done"></article></slide>
 
 
   <slide class="backdrop"></slide>
