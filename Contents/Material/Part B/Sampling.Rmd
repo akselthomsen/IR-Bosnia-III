@@ -210,7 +210,7 @@ Strata <- Strata[c(3,1,2)]
 head(Strata, n = 5)
 ```
 
-Then we merge it onto our dataframe
+## Then we merge it onto our dataframe
 
 ```{r}
 mydata_example <- merge (mydata_example, Strata, 
@@ -218,7 +218,8 @@ mydata_example <- merge (mydata_example, Strata,
 mydata_example[c(1,72,140,210,281,396,525,630,741,949),]
 ```
 
-## Allocating a Proportional Sample 
+***
+Allocating a Proportional Sample 
 
 * We now want two summary statistics on stratum level: Size of each stratum (Nh) and standard deviation of last years turnover (sh)
 
