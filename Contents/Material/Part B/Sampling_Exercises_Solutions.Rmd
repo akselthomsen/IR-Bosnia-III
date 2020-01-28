@@ -160,7 +160,7 @@ mydata_estimation$size <- cut(mydata_estimation$Nr_empl_reg,
                             c(0, 100, 500, 1e7),
                             right = TRUE,
                             include.lowest = FALSE,
-                            labels = c("0-100", "101-499", "500+"))
+                            labels = c("0-100", "101-500", "501+"))
 
 Strata <- unique (mydata_estimation[,c("sector", "size")])
 Strata <- Strata[order(Strata$sector, Strata$size),]

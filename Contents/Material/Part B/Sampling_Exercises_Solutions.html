@@ -3319,7 +3319,7 @@ mydata_estimation$size &lt;- cut(mydata_estimation$Nr_empl_reg,
                             c(0, 100, 500, 1e7),
                             right = TRUE,
                             include.lowest = FALSE,
-                            labels = c(&quot;0-100&quot;, &quot;101-499&quot;, &quot;500+&quot;))
+                            labels = c(&quot;0-100&quot;, &quot;101-500&quot;, &quot;501+&quot;))
 
 Strata &lt;- unique (mydata_estimation[,c(&quot;sector&quot;, &quot;size&quot;)])
 Strata &lt;- Strata[order(Strata$sector, Strata$size),]

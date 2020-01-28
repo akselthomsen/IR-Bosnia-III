@@ -186,8 +186,8 @@ where $s_h$ is the standard error in stratum $h$ of a variable of interest
 
 * Our sampling method may allocate more units than $N_h$ or may allocate $n_h < 10$. In that case, some corrections are necessary.
 * Strata in which we allocate no units (e.g. because the units in those strata are "small" in the sense that they are below some bagatel threshold, e.g. 10 employees or turnover below 50,000) are called **take none**
-* Strata in which we allocate some but not all units are called *take some*
-* Strata in which we allocate all units (e.g. because the strata are small or because the units are "large" or "important" in some sense) are called **take all*
+* Strata in which we allocate some but not all units are called **take some**
+* Strata in which we allocate all units (e.g. because the strata are small or because the units are "large" or "important" in some sense) are called **take all**
 
 ***
 * Using the **samplingbook** package written by Juliane Manitz and others will give us a lot of functionality automatically
