@@ -104,13 +104,6 @@ install.packages(c("tidyverse", "micemd", "jomo", "pan",
                  dependencies = TRUE)
 ```
 
-
-If you are not sure where to execute code, use the following figure to identify the console:
-
-<center>
-  <img src="console.png" alt="HTML5 Icon" width = 50%>
-</center>
-
 Just copy and paste the installation command and press the return key. When asked 
 
 ```{r eval = FALSE, echo = TRUE}
