@@ -48,14 +48,19 @@ output:
   - `matrix`
   - `list`
   - `data.frame`
+
+## Native classes
+
 - Classes:
   - `numeric`
   - `integer`
   - `character`
+  - `logical`
   - `Date`
   - `POSIXct` or datetime
+  - `factor`
   
-## Functions for tomorrow
+## Functions for later
 
 - `aggregate`: Summarise data
 - `cut`: Divide variables
@@ -85,7 +90,7 @@ aggregate(x ~ group, data = df, FUN = sum)
 - Recodes numeric to factor
 
 ```{r}
-x = runif(n = 10, min = 0, max = 1)
+x <- runif(n = 10, min = 0, max = 1)
 x
 ```
 
@@ -93,10 +98,10 @@ x
 
 - Divides the range
 - Recodes numeric to factor
+- Default is lower bound not included!
 
 ```{r}
-y <- cut(x = x, breaks = c(0,0.25,0.75,1))
-y
+(y <- cut(x = x, breaks = c(0,0.25,0.75,1)))
 table(y)
 ```
 
@@ -237,8 +242,8 @@ mtcars %>%
 - Very good graphic package
 - Grammar of grapics
 - RStudio again
-- [Reference guide](https://github.com/rstudio/cheatsheets/raw/master/data-import.pdf)
-- [Cheat Sheet](https://github.com/rstudio/cheatsheets/raw/master/data-import.pdf)
+- [Reference guide](https://ggplot2.tidyverse.org/reference/index.html)
+- [Data Visualisation Cheat Sheet](https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf)
 
 ## Example 1
 

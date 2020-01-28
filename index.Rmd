@@ -42,6 +42,8 @@ Previous experience with R is required.
 
 We adapt the course as we go. To ensure that you work with the latest iteration of the course materials, we advice all course participants to access the materials online.
 
+If you want access to the underlying R files, that creates the presentation and more, they can be accesed from [GitHub](https://github.com/akselthomsen/IR-Bosnia-III).
+
 ## Column 2
 
 ### Course schedule (provisional)
@@ -154,8 +156,9 @@ type `Yes` in the console and press the return key.
 ## Column 2
 
 ### Useful references
-- [tidyverse.com](https://www.tidyverse.org/)
-- [RStudio Cheat Sheets](https://rstudio.com/resources/cheatsheets/)
+- [tidyverse.com](https://www.tidyverse.org/): Everything about the tidyverse and their packages
+- [RStudio Cheat Sheets](https://rstudio.com/resources/cheatsheets/): Collection of very good cheat sheets
+- [Tidy data](https://www.jstatsoft.org/article/view/v059i10): Article explaining the tidy data concept and best practises for structuring data in R. Written by Hadley Wickham, Chief Scientist at Rstudio.
 
 # Wednesday
 
@@ -163,6 +166,13 @@ type `Yes` in the console and press the return key.
 
 ### Wednesday's materials
 
+- Part C: Estimation and calibration (continued from yesterday)
+
+    - [Lecture D](Contents/Material/Part C/Estimation.html){target="_blank"}
+    - [Exercise D](Contents/Material/Part C/Estimation_Exercises.html){target="_blank"}
+    - [Solution D](Contents/Material/Part C/Estimation_Exercises.html){target="_blank"}
+    - Data: Reuse from Part B
+    
 - Part D: Functional Programming
 
     - [Lecture E](Contents/Material/Part D/Lecture.html){target="_blank"}
