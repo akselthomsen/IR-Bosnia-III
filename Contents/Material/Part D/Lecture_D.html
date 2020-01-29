@@ -3198,7 +3198,7 @@ slide:not(.current) .plotly.html-widget{
 ## {
 ##     UseMethod(&quot;svydesign&quot;, data)
 ## }
-## &lt;bytecode: 0x000000001bf93ea0&gt;
+## &lt;bytecode: 0x000000001bf74da0&gt;
 ## &lt;environment: namespace:survey&gt;</pre>
 
 </article></slide><slide class=""><hgroup><h2>Existing functions</h2></hgroup><article  id="existing-functions-1">
@@ -3684,7 +3684,7 @@ l &lt;- list(df1,df2,df3)</pre>
 ##   y &lt;- x^2
 ##   return(y)
 ## }
-## &lt;bytecode: 0x000000001ce4a920&gt;</pre>
+## &lt;bytecode: 0x000000001ce2b820&gt;</pre>
 
 <pre class = 'prettyprint lang-r'>map_dbl(.x = 1:3, .f = squared)</pre>
 
@@ -3894,16 +3894,16 @@ pop_0 &lt;- tibble(
 <pre >## # A tibble: 1,000,000 x 3
 ##       ID GENDER EDUCATION
 ##    &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;    
-##  1     1 M      MEDIUM   
-##  2     2 F      MEDIUM   
-##  3     3 M      HIGH     
-##  4     4 M      LOW      
-##  5     5 M      MEDIUM   
-##  6     6 M      HIGH     
-##  7     7 F      LOW      
+##  1     1 F      MEDIUM   
+##  2     2 M      MEDIUM   
+##  3     3 F      HIGH     
+##  4     4 F      MEDIUM   
+##  5     5 F      LOW      
+##  6     6 F      MEDIUM   
+##  7     7 M      MEDIUM   
 ##  8     8 F      MEDIUM   
-##  9     9 F      HIGH     
-## 10    10 M      LOW      
+##  9     9 F      LOW      
+## 10    10 F      MEDIUM   
 ## # ... with 999,990 more rows</pre>
 
 </article></slide><slide class=""><hgroup><h2>Design</h2></hgroup><article  id="design">
@@ -3930,12 +3930,12 @@ pop_0 &lt;- tibble(
 <pre >## # A tibble: 6 x 3
 ##   GENDER EDUCATION            POP
 ##   &lt;chr&gt;  &lt;chr&gt;     &lt;list&lt;df[,1]&gt;&gt;
-## 1 M      MEDIUM     [249,728 x 1]
-## 2 F      MEDIUM     [250,153 x 1]
-## 3 M      HIGH       [150,360 x 1]
-## 4 M      LOW        [100,178 x 1]
-## 5 F      LOW         [99,722 x 1]
-## 6 F      HIGH       [149,859 x 1]</pre>
+## 1 F      MEDIUM     [250,339 x 1]
+## 2 M      MEDIUM     [249,739 x 1]
+## 3 F      HIGH       [150,124 x 1]
+## 4 F      LOW         [99,688 x 1]
+## 5 M      HIGH       [150,029 x 1]
+## 6 M      LOW        [100,081 x 1]</pre>
 
 </article></slide><slide class=""><hgroup><h2>Calculate number in each</h2></hgroup><article  id="calculate-number-in-each">
 
@@ -3946,12 +3946,12 @@ pop_0 &lt;- tibble(
 <pre >## # A tibble: 6 x 4
 ##   GENDER EDUCATION            POP      N
 ##   &lt;chr&gt;  &lt;chr&gt;     &lt;list&lt;df[,1]&gt;&gt;  &lt;int&gt;
-## 1 M      MEDIUM     [249,728 x 1] 249728
-## 2 F      MEDIUM     [250,153 x 1] 250153
-## 3 M      HIGH       [150,360 x 1] 150360
-## 4 M      LOW        [100,178 x 1] 100178
-## 5 F      LOW         [99,722 x 1]  99722
-## 6 F      HIGH       [149,859 x 1] 149859</pre>
+## 1 F      MEDIUM     [250,339 x 1] 250339
+## 2 M      MEDIUM     [249,739 x 1] 249739
+## 3 F      HIGH       [150,124 x 1] 150124
+## 4 F      LOW         [99,688 x 1]  99688
+## 5 M      HIGH       [150,029 x 1] 150029
+## 6 M      LOW        [100,081 x 1] 100081</pre>
 
 </article></slide><slide class=""><hgroup><h2>Calculate proportion of total</h2></hgroup><article  id="calculate-proportion-of-total">
 
@@ -3962,28 +3962,28 @@ pop_0 &lt;- tibble(
 <pre >## # A tibble: 6 x 5
 ##   GENDER EDUCATION            POP      N      P
 ##   &lt;chr&gt;  &lt;chr&gt;     &lt;list&lt;df[,1]&gt;&gt;  &lt;int&gt;  &lt;dbl&gt;
-## 1 M      MEDIUM     [249,728 x 1] 249728 0.250 
-## 2 F      MEDIUM     [250,153 x 1] 250153 0.250 
-## 3 M      HIGH       [150,360 x 1] 150360 0.150 
-## 4 M      LOW        [100,178 x 1] 100178 0.100 
-## 5 F      LOW         [99,722 x 1]  99722 0.0997
-## 6 F      HIGH       [149,859 x 1] 149859 0.150</pre>
+## 1 F      MEDIUM     [250,339 x 1] 250339 0.250 
+## 2 M      MEDIUM     [249,739 x 1] 249739 0.250 
+## 3 F      HIGH       [150,124 x 1] 150124 0.150 
+## 4 F      LOW         [99,688 x 1]  99688 0.0997
+## 5 M      HIGH       [150,029 x 1] 150029 0.150 
+## 6 M      LOW        [100,081 x 1] 100081 0.100</pre>
 
 </article></slide><slide class=""><hgroup><h2>Calculate numbers to draw from each strata</h2></hgroup><article  id="calculate-numbers-to-draw-from-each-strata">
 
 <pre class = 'prettyprint lang-r'>pop_4 &lt;- pop_3 %&gt;% 
-  mutate(n = round(P * sum(N))) %&gt;% 
+  mutate(n = round(P * n)) %&gt;% 
   print()</pre>
 
 <pre >## # A tibble: 6 x 6
-##   GENDER EDUCATION            POP      N      P      n
-##   &lt;chr&gt;  &lt;chr&gt;     &lt;list&lt;df[,1]&gt;&gt;  &lt;int&gt;  &lt;dbl&gt;  &lt;dbl&gt;
-## 1 M      MEDIUM     [249,728 x 1] 249728 0.250  249728
-## 2 F      MEDIUM     [250,153 x 1] 250153 0.250  250153
-## 3 M      HIGH       [150,360 x 1] 150360 0.150  150360
-## 4 M      LOW        [100,178 x 1] 100178 0.100  100178
-## 5 F      LOW         [99,722 x 1]  99722 0.0997  99722
-## 6 F      HIGH       [149,859 x 1] 149859 0.150  149859</pre>
+##   GENDER EDUCATION            POP      N      P     n
+##   &lt;chr&gt;  &lt;chr&gt;     &lt;list&lt;df[,1]&gt;&gt;  &lt;int&gt;  &lt;dbl&gt; &lt;dbl&gt;
+## 1 F      MEDIUM     [250,339 x 1] 250339 0.250   1252
+## 2 M      MEDIUM     [249,739 x 1] 249739 0.250   1249
+## 3 F      HIGH       [150,124 x 1] 150124 0.150    751
+## 4 F      LOW         [99,688 x 1]  99688 0.0997   498
+## 5 M      HIGH       [150,029 x 1] 150029 0.150    750
+## 6 M      LOW        [100,081 x 1] 100081 0.100    500</pre>
 
 </article></slide><slide class=""><hgroup><h2>Draw the sample from each</h2></hgroup><article  id="draw-the-sample-from-each">
 
@@ -3993,14 +3993,14 @@ pop_0 &lt;- tibble(
   print()</pre>
 
 <pre >## # A tibble: 6 x 7
-##   GENDER EDUCATION            POP      N      P      n SAMPLE                
-##   &lt;chr&gt;  &lt;chr&gt;     &lt;list&lt;df[,1]&gt;&gt;  &lt;int&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;list&gt;                
-## 1 M      MEDIUM     [249,728 x 1] 249728 0.250  249728 &lt;tibble [249,728 x 1]&gt;
-## 2 F      MEDIUM     [250,153 x 1] 250153 0.250  250153 &lt;tibble [250,153 x 1]&gt;
-## 3 M      HIGH       [150,360 x 1] 150360 0.150  150360 &lt;tibble [150,360 x 1]&gt;
-## 4 M      LOW        [100,178 x 1] 100178 0.100  100178 &lt;tibble [100,178 x 1]&gt;
-## 5 F      LOW         [99,722 x 1]  99722 0.0997  99722 &lt;tibble [99,722 x 1]&gt; 
-## 6 F      HIGH       [149,859 x 1] 149859 0.150  149859 &lt;tibble [149,859 x 1]&gt;</pre>
+##   GENDER EDUCATION            POP      N      P     n SAMPLE              
+##   &lt;chr&gt;  &lt;chr&gt;     &lt;list&lt;df[,1]&gt;&gt;  &lt;int&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;list&gt;              
+## 1 F      MEDIUM     [250,339 x 1] 250339 0.250   1252 &lt;tibble [1,252 x 1]&gt;
+## 2 M      MEDIUM     [249,739 x 1] 249739 0.250   1249 &lt;tibble [1,249 x 1]&gt;
+## 3 F      HIGH       [150,124 x 1] 150124 0.150    751 &lt;tibble [751 x 1]&gt;  
+## 4 F      LOW         [99,688 x 1]  99688 0.0997   498 &lt;tibble [498 x 1]&gt;  
+## 5 M      HIGH       [150,029 x 1] 150029 0.150    750 &lt;tibble [750 x 1]&gt;  
+## 6 M      LOW        [100,081 x 1] 100081 0.100    500 &lt;tibble [500 x 1]&gt;</pre>
 
 </article></slide><slide class=""><hgroup><h2>Combine them into the final sample</h2></hgroup><article  id="combine-them-into-the-final-sample">
 
@@ -4010,26 +4010,26 @@ pop_0 &lt;- tibble(
 
 nrow(final_sample)</pre>
 
-<pre >## [1] 1000000</pre>
+<pre >## [1] 5000</pre>
 
 </article></slide><slide class=""><hgroup><h2>Final sample</h2></hgroup><article  id="final-sample">
 
 <pre class = 'prettyprint lang-r'>final_sample</pre>
 
-<pre >## # A tibble: 1,000,000 x 3
+<pre >## # A tibble: 5,000 x 3
 ##    GENDER EDUCATION     ID
 ##    &lt;chr&gt;  &lt;chr&gt;      &lt;int&gt;
-##  1 M      MEDIUM    875465
-##  2 M      MEDIUM    122908
-##  3 M      MEDIUM     57333
-##  4 M      MEDIUM    684591
-##  5 M      MEDIUM    442060
-##  6 M      MEDIUM    718469
-##  7 M      MEDIUM    535109
-##  8 M      MEDIUM     84558
-##  9 M      MEDIUM    149083
-## 10 M      MEDIUM    770948
-## # ... with 999,990 more rows</pre>
+##  1 F      MEDIUM    424394
+##  2 F      MEDIUM    301794
+##  3 F      MEDIUM    854342
+##  4 F      MEDIUM    349085
+##  5 F      MEDIUM    627801
+##  6 F      MEDIUM    581215
+##  7 F      MEDIUM    634843
+##  8 F      MEDIUM    650303
+##  9 F      MEDIUM    657010
+## 10 F      MEDIUM    350531
+## # ... with 4,990 more rows</pre>
 
 </article></slide><slide class=""><hgroup><h2>Could have been done in one step</h2></hgroup><article  id="could-have-been-done-in-one-step">
 
@@ -4038,7 +4038,7 @@ nrow(final_sample)</pre>
   mutate(
     N = map_int(.x = POP, .f = nrow),
     P = N/sum(N),
-    n = round(P * sum(N)),
+    n = round(P * n),
     SAMPLE = map2(.x = POP, .y = n, 
                        .f = ~ sample_n(tbl = .x, size = .y))
     )</pre>

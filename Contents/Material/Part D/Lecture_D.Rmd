@@ -597,7 +597,7 @@ pop_3 <- pop_2 %>%
 
 ```{r}
 pop_4 <- pop_3 %>% 
-  mutate(n = round(P * sum(N))) %>% 
+  mutate(n = round(P * n)) %>% 
   print()
 ```
 
@@ -634,7 +634,7 @@ pop_final <- pop_0 %>%
   mutate(
     N = map_int(.x = POP, .f = nrow),
     P = N/sum(N),
-    n = round(P * sum(N)),
+    n = round(P * n),
     SAMPLE = map2(.x = POP, .y = n, 
                        .f = ~ sample_n(tbl = .x, size = .y))
     )
