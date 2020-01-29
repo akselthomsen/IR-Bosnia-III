@@ -197,7 +197,10 @@ type `Yes` in the console and press the return key.
 ## Column 2
 
 ### Useful references
-- [add]()
+- [survey package](https://CRAN.R-project.org/package=survey): Link to the CRAN documentation
+- [A survey analysis example](https://cran.r-project.org/web/packages/survey/vignettes/survey.pdf) by Thomas Lumley: Introduction vignette to the `survey` package
+- [Basic R examples](https://www.coursera.org/lecture/data-collection-analytics-project/basic-r-examples-eYiuT): Coursera course on using the `survey` package
+- [Cousera](https://www.coursera.org/): General link
 
 # Thursday
 

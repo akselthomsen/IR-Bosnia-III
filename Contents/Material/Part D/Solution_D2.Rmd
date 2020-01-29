@@ -20,6 +20,29 @@ Hint: Experiment with the `coef` function.
 
 **Solution**
 
+Estimate model
+
+```{r,message=FALSE}
+library(tidyverse)
+
+df <- as_tibble(mtcars)
+df
+
+model <- lm(qsec ~ hp + wt, data = df)
+
+summary(model)
+```
+
+Extract coefficient
+
+```{r}
+coef(model)
+a <- coef(model)[[2]]
+b <- coef(model)[[3]]
+a
+b
+```
+
 ## Problem 8
 
 Divide the `mtcars` data in subsets based on the number of gears (`gear`) each car has.
@@ -29,6 +52,23 @@ Now estimate the same model from Problem 7, but this time estimate one individua
 Finally compare the results.
 
 **Solution**
+
+```{r}
+df <- mtcars %>% 
+  as_tibble() %>% 
+  nest(data = c(-gear)) %>% 
+  mutate(
+    MODEL = map(.x = data, .f = ~ lm(qsec ~ hp + wt, data = .x)),
+    COEF = map(.x = MODEL, .f = coef),
+    a = map_dbl(.x = COEF, .f = ~ .x[[2]]),
+    b = map_dbl(.x = COEF, .f = ~ .x[[3]])
+  )
+
+df
+
+summary(df$MODEL[[1]])
+df$COEF
+```
 
 ## Problem 9
 
@@ -50,9 +90,46 @@ Draw a simple stratified sample with the following specifications:
 
 **Solution**
 
+```{r}
+pop_final <- mydata_example %>% 
+  nest(POP = c(-region,-sector)) %>% 
+  mutate(
+    N = map_int(.x = POP, .f = nrow),
+    P = N/sum(N),
+    n = round(P * 200),
+    SAMPLE = map2(.x = POP, .y = n, 
+                       .f = ~ sample_n(tbl = .x, size = .y))
+    )
+
+pop_final
+sum(pop_final$n)
+
+pop_final %>% 
+  select(region,sector,SAMPLE) %>% 
+  unnest(cols = SAMPLE)
+```
+
 ## Problem 10
 
 In stead of proportional allocation can you draw a sample with optimal allocation based on the variance of `turnover_2019`?
 Otherwise the same specifications as Problem 9.
 
 **Solution**
+
+```{r}
+pop_final <- mydata_example %>% 
+  nest(POP = c(-region,-sector)) %>% 
+  mutate(
+    N = map_int(.x = POP, .f = nrow),
+    SD = map_dbl(.x = POP, .f = ~ sd(.x[["turnover_2019"]])),
+    P = N * SD / sum(SD * N),
+    n = round(P * 200),
+    SAMPLE = map2(.x = POP, .y = n, 
+                       .f = ~ sample_n(tbl = .x, size = .y))
+    )
+
+sum(pop_final$n)
+
+pop_final
+```
+

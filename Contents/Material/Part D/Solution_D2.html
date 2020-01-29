@@ -377,6 +377,57 @@ summary {
 <p>So where the time in seconds to complete a quarter-mile (<code>qsec</code>) is a linear function of horsepower (<code>hp</code>) and weight in 1,000 lbs (<code>wt</code>). Hint: use the <code>lm</code> function.</p>
 <p>Afterwards extract the coefficient (<code>a</code> &amp; <code>b</code> in the equation) into seperate variables. Hint: Experiment with the <code>coef</code> function.</p>
 <p><strong>Solution</strong></p>
+<p>Estimate model</p>
+<pre class="r"><code>library(tidyverse)
+
+df &lt;- as_tibble(mtcars)
+df</code></pre>
+<pre><code>## # A tibble: 32 x 11
+##      mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
+##    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1  21       6  160    110  3.9   2.62  16.5     0     1     4     4
+##  2  21       6  160    110  3.9   2.88  17.0     0     1     4     4
+##  3  22.8     4  108     93  3.85  2.32  18.6     1     1     4     1
+##  4  21.4     6  258    110  3.08  3.22  19.4     1     0     3     1
+##  5  18.7     8  360    175  3.15  3.44  17.0     0     0     3     2
+##  6  18.1     6  225    105  2.76  3.46  20.2     1     0     3     1
+##  7  14.3     8  360    245  3.21  3.57  15.8     0     0     3     4
+##  8  24.4     4  147.    62  3.69  3.19  20       1     0     4     2
+##  9  22.8     4  141.    95  3.92  3.15  22.9     1     0     4     2
+## 10  19.2     6  168.   123  3.92  3.44  18.3     1     0     4     4
+## # ... with 22 more rows</code></pre>
+<pre class="r"><code>model &lt;- lm(qsec ~ hp + wt, data = df)
+
+summary(model)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = qsec ~ hp + wt, data = df)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -1.8283 -0.4055 -0.1464  0.3519  3.7030 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 18.825585   0.671867  28.020  &lt; 2e-16 ***
+## hp          -0.027310   0.003795  -7.197 6.36e-08 ***
+## wt           0.941532   0.265897   3.541  0.00137 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1.09 on 29 degrees of freedom
+## Multiple R-squared:  0.652,  Adjusted R-squared:  0.628 
+## F-statistic: 27.17 on 2 and 29 DF,  p-value: 2.251e-07</code></pre>
+<p>Extract coefficient</p>
+<pre class="r"><code>coef(model)</code></pre>
+<pre><code>## (Intercept)          hp          wt 
+## 18.82558525 -0.02730962  0.94153237</code></pre>
+<pre class="r"><code>a &lt;- coef(model)[[2]]
+b &lt;- coef(model)[[3]]
+a</code></pre>
+<pre><code>## [1] -0.02730962</code></pre>
+<pre class="r"><code>b</code></pre>
+<pre><code>## [1] 0.9415324</code></pre>
 </div>
 <div id="problem-8" class="section level2">
 <h2>Problem 8</h2>
@@ -384,6 +435,55 @@ summary {
 <p>Now estimate the same model from Problem 7, but this time estimate one individual model for each of these subset.</p>
 <p>Finally compare the results.</p>
 <p><strong>Solution</strong></p>
+<pre class="r"><code>df &lt;- mtcars %&gt;% 
+  as_tibble() %&gt;% 
+  nest(data = c(-gear)) %&gt;% 
+  mutate(
+    MODEL = map(.x = data, .f = ~ lm(qsec ~ hp + wt, data = .x)),
+    COEF = map(.x = MODEL, .f = coef),
+    a = map_dbl(.x = COEF, .f = ~ .x[[2]]),
+    b = map_dbl(.x = COEF, .f = ~ .x[[3]])
+  )
+
+df</code></pre>
+<pre><code>## # A tibble: 3 x 6
+##    gear            data MODEL  COEF             a      b
+##   &lt;dbl&gt; &lt;list&lt;df[,10]&gt;&gt; &lt;list&gt; &lt;list&gt;       &lt;dbl&gt;  &lt;dbl&gt;
+## 1     4       [12 x 10] &lt;lm&gt;   &lt;dbl [3]&gt; -0.0538   1.88 
+## 2     3       [15 x 10] &lt;lm&gt;   &lt;dbl [3]&gt; -0.0319   0.781
+## 3     5        [5 x 10] &lt;lm&gt;   &lt;dbl [3]&gt; -0.00409 -0.849</code></pre>
+<pre class="r"><code>summary(df$MODEL[[1]])</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = qsec ~ hp + wt, data = .x)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -1.5253 -0.7636 -0.0097  0.3805  3.2259 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 18.84999    1.85462  10.164 3.13e-06 ***
+## hp          -0.05381    0.02461  -2.187   0.0565 .  
+## wt           1.88455    1.00705   1.871   0.0941 .  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1.434 on 9 degrees of freedom
+## Multiple R-squared:  0.3542, Adjusted R-squared:  0.2106 
+## F-statistic: 2.468 on 2 and 9 DF,  p-value: 0.1398</code></pre>
+<pre class="r"><code>df$COEF</code></pre>
+<pre><code>## [[1]]
+## (Intercept)          hp          wt 
+##  18.8499932  -0.0538127   1.8845518 
+## 
+## [[2]]
+## (Intercept)          hp          wt 
+## 20.26243651 -0.03186265  0.78139000 
+## 
+## [[3]]
+##  (Intercept)           hp           wt 
+## 18.674737558 -0.004092577 -0.848677928</code></pre>
 </div>
 <div id="problem-9" class="section level2">
 <h2>Problem 9</h2>
@@ -414,11 +514,101 @@ mydata_example</code></pre>
 <li>Proportional allocation</li>
 </ul>
 <p><strong>Solution</strong></p>
+<pre class="r"><code>pop_final &lt;- mydata_example %&gt;% 
+  nest(POP = c(-region,-sector)) %&gt;% 
+  mutate(
+    N = map_int(.x = POP, .f = nrow),
+    P = N/sum(N),
+    n = round(P * 200),
+    SAMPLE = map2(.x = POP, .y = n, 
+                       .f = ~ sample_n(tbl = .x, size = .y))
+    )
+
+pop_final</code></pre>
+<pre><code>## # A tibble: 20 x 7
+##    region sector                 POP     N      P     n SAMPLE           
+##    &lt;fct&gt;  &lt;fct&gt;       &lt;list&lt;df[,5]&gt;&gt; &lt;int&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;list&gt;           
+##  1 EAST   Services         [105 x 5]   105 0.0525    10 &lt;tibble [10 x 5]&gt;
+##  2 NORTH  Services          [86 x 5]    86 0.043      9 &lt;tibble [9 x 5]&gt; 
+##  3 WEST   Services          [72 x 5]    72 0.036      7 &lt;tibble [7 x 5]&gt; 
+##  4 SOUTH  Services          [97 x 5]    97 0.0485    10 &lt;tibble [10 x 5]&gt;
+##  5 EAST   Finance          [115 x 5]   115 0.0575    12 &lt;tibble [12 x 5]&gt;
+##  6 SOUTH  Finance          [104 x 5]   104 0.052     10 &lt;tibble [10 x 5]&gt;
+##  7 WEST   Finance          [112 x 5]   112 0.056     11 &lt;tibble [11 x 5]&gt;
+##  8 NORTH  Finance          [129 x 5]   129 0.0645    13 &lt;tibble [13 x 5]&gt;
+##  9 NORTH  Industry         [178 x 5]   178 0.089     18 &lt;tibble [18 x 5]&gt;
+## 10 SOUTH  Industry         [172 x 5]   172 0.086     17 &lt;tibble [17 x 5]&gt;
+## 11 EAST   Industry         [206 x 5]   206 0.103     21 &lt;tibble [21 x 5]&gt;
+## 12 WEST   Industry         [184 x 5]   184 0.092     18 &lt;tibble [18 x 5]&gt;
+## 13 EAST   Information       [38 x 5]    38 0.019      4 &lt;tibble [4 x 5]&gt; 
+## 14 SOUTH  Information       [34 x 5]    34 0.017      3 &lt;tibble [3 x 5]&gt; 
+## 15 NORTH  Information       [38 x 5]    38 0.019      4 &lt;tibble [4 x 5]&gt; 
+## 16 WEST   Information       [50 x 5]    50 0.025      5 &lt;tibble [5 x 5]&gt; 
+## 17 SOUTH  Culture           [69 x 5]    69 0.0345     7 &lt;tibble [7 x 5]&gt; 
+## 18 WEST   Culture           [72 x 5]    72 0.036      7 &lt;tibble [7 x 5]&gt; 
+## 19 EAST   Culture           [71 x 5]    71 0.0355     7 &lt;tibble [7 x 5]&gt; 
+## 20 NORTH  Culture           [68 x 5]    68 0.034      7 &lt;tibble [7 x 5]&gt;</code></pre>
+<pre class="r"><code>sum(pop_final$n)</code></pre>
+<pre><code>## [1] 200</code></pre>
+<pre class="r"><code>pop_final %&gt;% 
+  select(region,sector,SAMPLE) %&gt;% 
+  unnest(cols = SAMPLE)</code></pre>
+<pre><code>## # A tibble: 200 x 7
+##    region sector   name    Nr_empl_reg turnover_2019 turnover_2020 Nr_empl_2020
+##    &lt;fct&gt;  &lt;fct&gt;    &lt;fct&gt;         &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;        &lt;dbl&gt;
+##  1 EAST   Services xlqvwqc         144       1006609        994961          203
+##  2 EAST   Services wsgwqof         264        839594        804029          211
+##  3 EAST   Services frungto         187       1119708       1062873          234
+##  4 EAST   Services oabpiaw         133        834540        788421          142
+##  5 EAST   Services nhtxfmo          70        315923        309936           78
+##  6 EAST   Services hngbyuj         193       1114006       1184598          190
+##  7 EAST   Services qemspen         242       1023577        938295          193
+##  8 EAST   Services wunufdx         139       1029420       1066052          182
+##  9 EAST   Services ppmrwmp         228        990598       1053248          217
+## 10 EAST   Services btuurjy         117        751959        776946          144
+## # ... with 190 more rows</code></pre>
 </div>
 <div id="problem-10" class="section level2">
 <h2>Problem 10</h2>
 <p>In stead of proportional allocation can you draw a sample with optimal allocation based on the variance of <code>turnover_2019</code>? Otherwise the same specifications as Problem 9.</p>
 <p><strong>Solution</strong></p>
+<pre class="r"><code>pop_final &lt;- mydata_example %&gt;% 
+  nest(POP = c(-region,-sector)) %&gt;% 
+  mutate(
+    N = map_int(.x = POP, .f = nrow),
+    SD = map_dbl(.x = POP, .f = ~ sd(.x[[&quot;turnover_2019&quot;]])),
+    P = N * SD / sum(SD * N),
+    n = round(P * 200),
+    SAMPLE = map2(.x = POP, .y = n, 
+                       .f = ~ sample_n(tbl = .x, size = .y))
+    )
+
+sum(pop_final$n)</code></pre>
+<pre><code>## [1] 199</code></pre>
+<pre class="r"><code>pop_final</code></pre>
+<pre><code>## # A tibble: 20 x 8
+##    region sector                 POP     N      SD       P     n SAMPLE         
+##    &lt;fct&gt;  &lt;fct&gt;       &lt;list&lt;df[,5]&gt;&gt; &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;list&gt;         
+##  1 EAST   Services         [105 x 5]   105  3.33e5 0.0205      4 &lt;tibble [4 x 5~
+##  2 NORTH  Services          [86 x 5]    86  3.68e5 0.0185      4 &lt;tibble [4 x 5~
+##  3 WEST   Services          [72 x 5]    72  3.39e5 0.0143      3 &lt;tibble [3 x 5~
+##  4 SOUTH  Services          [97 x 5]    97  3.41e5 0.0194      4 &lt;tibble [4 x 5~
+##  5 EAST   Finance          [115 x 5]   115  2.84e5 0.0191      4 &lt;tibble [4 x 5~
+##  6 SOUTH  Finance          [104 x 5]   104  2.65e5 0.0161      3 &lt;tibble [3 x 5~
+##  7 WEST   Finance          [112 x 5]   112  2.92e5 0.0192      4 &lt;tibble [4 x 5~
+##  8 NORTH  Finance          [129 x 5]   129  2.65e5 0.0200      4 &lt;tibble [4 x 5~
+##  9 NORTH  Industry         [178 x 5]   178  1.81e6 0.189      38 &lt;tibble [38 x ~
+## 10 SOUTH  Industry         [172 x 5]   172  1.89e6 0.190      38 &lt;tibble [38 x ~
+## 11 EAST   Industry         [206 x 5]   206  1.80e6 0.217      43 &lt;tibble [43 x ~
+## 12 WEST   Industry         [184 x 5]   184  1.81e6 0.195      39 &lt;tibble [39 x ~
+## 13 EAST   Information       [38 x 5]    38  1.59e5 0.00354     1 &lt;tibble [1 x 5~
+## 14 SOUTH  Information       [34 x 5]    34  2.16e5 0.00430     1 &lt;tibble [1 x 5~
+## 15 NORTH  Information       [38 x 5]    38  1.08e5 0.00241     0 &lt;tibble [0 x 5~
+## 16 WEST   Information       [50 x 5]    50  1.51e5 0.00443     1 &lt;tibble [1 x 5~
+## 17 SOUTH  Culture           [69 x 5]    69  2.96e5 0.0120      2 &lt;tibble [2 x 5~
+## 18 WEST   Culture           [72 x 5]    72  2.77e5 0.0117      2 &lt;tibble [2 x 5~
+## 19 EAST   Culture           [71 x 5]    71  2.84e5 0.0118      2 &lt;tibble [2 x 5~
+## 20 NORTH  Culture           [68 x 5]    68  2.97e5 0.0118      2 &lt;tibble [2 x 5~</code></pre>
 </div>
 
 
