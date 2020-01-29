@@ -3158,6 +3158,20 @@ slide:not(.current) .plotly.html-widget{
 <li>Exercises again</li>
 </ol>
 
+</article></slide><slide class=""><hgroup><h2>Why is it important?</h2></hgroup><article  id="why-is-it-important">
+
+<ul>
+<li>From <a href='https://cran.r-project.org/web/packages/tidyverse/vignettes/manifesto.html' title=''>The tidy tools manifesto</a></li>
+</ul>
+
+<ol>
+<li>There are four basic principles to a tidy API:</li>
+<li>Reuse existing data structures.</li>
+<li>Compose simple functions with the pipe.</li>
+<li>Embrace functional programming.</li>
+<li>Design for humans.</li>
+</ol>
+
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Functions</h2></hgroup><article  id="functions">
 
 </article></slide><slide class=""><hgroup><h2>Functions in general</h2></hgroup><article  id="functions-in-general">
@@ -3184,14 +3198,16 @@ slide:not(.current) .plotly.html-widget{
 ## {
 ##     UseMethod(&quot;svydesign&quot;, data)
 ## }
-## &lt;bytecode: 0x000000001313efb8&gt;
+## &lt;bytecode: 0x000000001bf93ea0&gt;
 ## &lt;environment: namespace:survey&gt;</pre>
+
+</article></slide><slide class=""><hgroup><h2>Existing functions</h2></hgroup><article  id="existing-functions-1">
 
 <pre class = 'prettyprint lang-r'>`%in%`</pre>
 
 <pre >## function (x, table) 
 ## match(x, table, nomatch = 0L) &gt; 0L
-## &lt;bytecode: 0x0000000012eeec88&gt;
+## &lt;bytecode: 0x0000000012eeed68&gt;
 ## &lt;environment: namespace:base&gt;</pre>
 
 </article></slide><slide class=""><hgroup><h2>Make your own</h2></hgroup><article  id="make-your-own">
@@ -3262,8 +3278,6 @@ new_function(
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Loops and indexes</h2></hgroup><article  id="loops-and-indexes">
 
-</article></slide><slide class=""><hgroup><h2>Loops</h2></hgroup><article  id="loops">
-
 </article></slide><slide class=""><hgroup><h2>Indexes</h2></hgroup><article  id="indexes">
 
 <ul>
@@ -3319,18 +3333,715 @@ x[-3] # By excluding unwanted element</pre>
 <pre >## [1] 1 2</pre>
 
 <ul>
-<li>No longer a list!</li>
+<li>No longer a <code>list</code>!</li>
 </ul>
+
+</article></slide><slide class=""><hgroup><h2>Loops</h2></hgroup><article  id="loops">
+
+<ul>
+<li>Repeating an action</li>
+<li>Manipulating list based on index</li>
+<li>Different loops:</li>
+<li><code>for</code>: Loop over a sequence</li>
+<li><code>while</code> Loop until a condition is no longer <code>TRUE</code> (be careful!)</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Loops - Example</h2></hgroup><article  id="loops---example">
+
+<pre class = 'prettyprint lang-r'>for (i in 1:2){
+  print(i)
+}</pre>
+
+<pre >## [1] 1
+## [1] 2</pre>
+
+<pre class = 'prettyprint lang-r'>for (i in seq_len(3)) {
+  print(i)
+}</pre>
+
+<pre >## [1] 1
+## [1] 2
+## [1] 3</pre>
+
+</article></slide><slide class=""><hgroup><h2>Loops - Example</h2></hgroup><article  id="loops---example-1">
+
+<pre class = 'prettyprint lang-r'>x &lt;- 1
+while (x &lt; 5){
+  print(x)
+  x &lt;- x + 1
+}</pre>
+
+<pre >## [1] 1
+## [1] 2
+## [1] 3
+## [1] 4</pre>
+
+</article></slide><slide class=""><hgroup><h2>Loops - Example</h2></hgroup><article  id="loops---example-2">
+
+<pre class = 'prettyprint lang-r'>x &lt;- 1
+while (x &gt; 0){
+  print(x)
+  x &lt;- x + 1
+}</pre>
+
+<ul>
+<li>Why is this a bad idea?</li>
+</ul>
+
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Apply family</h2></hgroup><article  id="apply-family">
+
+</article></slide><slide class=""><hgroup><h2>Recap on apply/lapply</h2></hgroup><article  id="recap-on-applylapply">
+
+<ul>
+<li>Alternative to loops</li>
+<li>More functional programming</li>
+<li><code>lapply</code>: When you want to evaluate the same function on a list of elements individually</li>
+<li><code>apply</code>: When you want to calculate a function across a <code>matrix</code></li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>lapply(X, FUN)
+apply(X, MARGIN, FUN, ...)</pre>
+
+</article></slide><slide class=""><hgroup><h2>Example with lappy</h2></hgroup><article  id="example-with-lappy">
+
+<ul>
+<li>Calculate the sum of several <code>vectors</code> in a <code>list</code>:</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>x &lt;- list(
+  a = 1:3,
+  b = 10^(1:5)
+)</pre>
+
+</article></slide><slide class=""><hgroup><h2>Example with lappy</h2></hgroup><article  id="example-with-lappy-1">
+
+<pre class = 'prettyprint lang-r'>x</pre>
+
+<pre >## $a
+## [1] 1 2 3
+## 
+## $b
+## [1] 1e+01 1e+02 1e+03 1e+04 1e+05</pre>
+
+<pre class = 'prettyprint lang-r'>lapply(X = x, FUN = mean)</pre>
+
+<pre >## $a
+## [1] 2
+## 
+## $b
+## [1] 22222</pre>
+
+</article></slide><slide class=""><hgroup><h2>Example with apply</h2></hgroup><article  id="example-with-apply">
+
+<pre class = 'prettyprint lang-r'>x &lt;- matrix(data = (1:9)^2, nrow = 3)
+x</pre>
+
+<pre >##      [,1] [,2] [,3]
+## [1,]    1   16   49
+## [2,]    4   25   64
+## [3,]    9   36   81</pre>
+
+</article></slide><slide class=""><hgroup><h2>Example with apply</h2></hgroup><article  id="example-with-apply-1">
+
+<ul>
+<li>Find the mean across the two dimensions:</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>apply(X = x, MARGIN = 1, FUN = mean)</pre>
+
+<pre >## [1] 22 31 42</pre>
+
+<pre class = 'prettyprint lang-r'>apply(X = x, MARGIN = 2, FUN = mean)</pre>
+
+<pre >## [1]  4.666667 25.666667 64.666667</pre>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Purrr and map</h2></hgroup><article  id="purrr-and-map">
 
+</article></slide><slide class=""><hgroup><h2>The purrr package</h2></hgroup><article  id="the-purrr-package">
+
+<ul>
+<li>Another <code>tidyverse</code> package</li>
+<li>Alternative to <code>lapply</code>/<code>apply</code></li>
+<li>Pipe-friendly</li>
+<li>Consistent output</li>
+<li><a href='https://github.com/rstudio/cheatsheets/raw/master/purrr.pdf' title=''>Apply Functions Cheat Sheet</a></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Most important functions</h2></hgroup><article  id="most-important-functions">
+
+<ul>
+<li><code>map</code>: Very similar to lapply</li>
+<li><code>map2</code>: Two argument version of <code>map</code></li>
+<li><code>pmap</code>: Unlimited number of arguments</li>
+<li><code>walk</code>: Only for side effects</li>
+<li><code>reduce</code>: Combining intermediate results</li>
+<li><code>accumulate</code>: Combine but also keep intermediate results</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Control the output</h2></hgroup><article  id="control-the-output">
+
+<ul>
+<li>All <code>map</code> functions returns a list per default</li>
+<li>Use suffix to change that</li>
+<li>The list is then coerced into the desired class</li>
+<li><code>_dbl</code>: Double or numeric</li>
+<li><code>_int</code>: Integer</li>
+<li><code>_chr</code>: Character</li>
+<li><code>_lgl</code>: Logical</li>
+<li><code>_dfr</code>: Data.frame (row binding)</li>
+<li><code>_dfc</code>: Data.frame (column binding)</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>map function</h2></hgroup><article  id="map-function">
+
+<pre class = 'prettyprint lang-r'>map(.x, .f, ...)</pre>
+
+<pre class = 'prettyprint lang-r'>x &lt;- list(
+  a = 1:3,
+  b = 10^(1:5)
+)</pre>
+
+</article></slide><slide class=""><hgroup><h2>map function</h2></hgroup><article  id="map-function-1">
+
+<pre class = 'prettyprint lang-r'>map(.x = x, .f = mean)</pre>
+
+<pre >## $a
+## [1] 2
+## 
+## $b
+## [1] 22222</pre>
+
+<pre class = 'prettyprint lang-r'>x %&gt;% map_dbl(.f = mean)</pre>
+
+<pre >##     a     b 
+##     2 22222</pre>
+
+</article></slide><slide class=""><hgroup><h2>map2 function</h2></hgroup><article  id="map2-function">
+
+<pre class = 'prettyprint lang-r'>x &lt;- list(
+  a = 1:3,
+  b = 10^(1:5)
+)
+
+y &lt;- list(
+  a = 10:30,
+  b = 7^(2:7)
+)
+
+f &lt;- function(x1,x2){
+  out &lt;- sum(x2)/sum(x1)
+  return(out)
+}</pre>
+
+</article></slide><slide class=""><hgroup><h2>map2 function</h2></hgroup><article  id="map2-function-1">
+
+<pre class = 'prettyprint lang-r'>map2(.x = x, .y = y, .f = f)</pre>
+
+<pre >## $a
+## [1] 70
+## 
+## $b
+## [1] 8.647214</pre>
+
+</article></slide><slide class=""><hgroup><h2>walk function</h2></hgroup><article  id="walk-function">
+
+<pre class = 'prettyprint lang-r'>map(.x = 1:2, .f = print)
+walk(.x = 1:2, .f = print)</pre>
+
+<ul>
+<li>What result do you expect?</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>walk function</h2></hgroup><article  id="walk-function-1">
+
+<pre class = 'prettyprint lang-r'>map(.x = 1:2, .f = print)</pre>
+
+<pre >## [1] 1
+## [1] 2</pre>
+
+<pre >## [[1]]
+## [1] 1
+## 
+## [[2]]
+## [1] 2</pre>
+
+<pre class = 'prettyprint lang-r'>walk(.x = 1:2, .f = print)</pre>
+
+<pre >## [1] 1
+## [1] 2</pre>
+
+</article></slide><slide class=""><hgroup><h2>walk function</h2></hgroup><article  id="walk-function-2">
+
+<ul>
+<li><code>print</code> function is a &ldquo;side-effect&rdquo; function that prints the object</li>
+<li>But invisible it returns the same object</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>2 %&gt;% 
+  print() %&gt;% 
+  paste0()</pre>
+
+<pre >## [1] 2</pre>
+
+<pre >## [1] &quot;2&quot;</pre>
+
+<ul>
+<li>When you dont want the original output or to keep a list structure use <code>walk</code></li>
+<li>Good when using plotting functions</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>reduce and accumulate</h2></hgroup><article  id="reduce-and-accumulate">
+
+<ul>
+<li>Result of two first are passed on as the first argument in the next evaluation</li>
+<li>List of <code>data.frames</code></li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>df1 &lt;- data.frame(id = 1:3)
+df2 &lt;- data.frame(id = 2:3)
+df3 &lt;- data.frame(id = 3)
+
+l &lt;- list(df1,df2,df3)</pre>
+
+</article></slide><slide class=""><hgroup><h2>reduce and accumulate</h2></hgroup><article  id="reduce-and-accumulate-1">
+
+<pre class = 'prettyprint lang-r'>l</pre>
+
+<pre >## [[1]]
+##   id
+## 1  1
+## 2  2
+## 3  3
+## 
+## [[2]]
+##   id
+## 1  2
+## 2  3
+## 
+## [[3]]
+##   id
+## 1  3</pre>
+
+</article></slide><slide class=""><hgroup><h2>reduce and accumulate</h2></hgroup><article  id="reduce-and-accumulate-2">
+
+<ul>
+<li>Join them all together with <code>inner_join</code></li>
+<li>What do we expect?</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>reduce and accumulate</h2></hgroup><article  id="reduce-and-accumulate-3">
+
+<ul>
+<li>Join them all together with <code>inner_join</code></li>
+<li>What do we expect?</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>reduce(.x = l, .f = inner_join, by = &quot;id&quot;)</pre>
+
+<pre >##   id
+## 1  3</pre>
+
+</article></slide><slide class=""><hgroup><h2>reduce and accumulate</h2></hgroup><article  id="reduce-and-accumulate-4">
+
+<ul>
+<li>What about <code>accumulate?</code></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>reduce and accumulate</h2></hgroup><article  id="reduce-and-accumulate-5">
+
+<ul>
+<li>What about <code>accumulate?</code></li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>accumulate(.x = l, .f = inner_join, by = &quot;id&quot;)</pre>
+
+<pre >## $id
+## [1] 1 2 3
+## 
+## $id
+## [1] 2 3
+## 
+## $id
+## [1] 3</pre>
+
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Exercises</h2></hgroup><article  id="exercises">
+
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Lambda functions</h2></hgroup><article  id="lambda-functions">
+
+</article></slide><slide class=""><hgroup><h2>Lambda functions in purrr</h2></hgroup><article  id="lambda-functions-in-purrr">
+
+<ul>
+<li><code>map</code> etc. requires a function</li>
+<li>Not all calculations need is relevant again</li>
+<li>Why explicitly assign a function to it?</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Tradtional way</h2></hgroup><article  id="tradtional-way">
+
+<pre class = 'prettyprint lang-r'>squared</pre>
+
+<pre >## function(x){
+##   y &lt;- x^2
+##   return(y)
+## }
+## &lt;bytecode: 0x000000001ce4a920&gt;</pre>
+
+<pre class = 'prettyprint lang-r'>map_dbl(.x = 1:3, .f = squared)</pre>
+
+<pre >## [1] 1 4 9</pre>
+
+</article></slide><slide class=""><hgroup><h2>Lambda way</h2></hgroup><article  id="lambda-way">
+
+<pre class = 'prettyprint lang-r'>map_dbl(.x = 1:3, ~ .x^2)</pre>
+
+<pre >## [1] 1 4 9</pre>
+
+<ul>
+<li>Formel interface/tilde expansion</li>
+<li>Easyish to read</li>
+<li>Recomdable instead of defining one-time use functions</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>And it scales!</h2></hgroup><article  id="and-it-scales">
+
+<pre class = 'prettyprint lang-r'>map2_dbl(.x = 1:3, .y = 11:13, .f = ~ .x/.y)</pre>
+
+<pre >## [1] 0.09090909 0.16666667 0.23076923</pre>
+
+<pre class = 'prettyprint lang-r'>new_function</pre>
+
+<pre >## function(x,y,z){
+##   out &lt;- (x + y)/z
+##   return(out)
+## }</pre>
+
+<pre class = 'prettyprint lang-r'>pmap_dbl(.l = list(1:3, 11:13, 21:23), 
+         .f = ~ (..1+..2)/..3)</pre>
+
+<pre >## [1] 0.5714286 0.6363636 0.6956522</pre>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Split, apply, combine</h2></hgroup><article  id="split-apply-combine">
 
-</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Nested data and lists</h2></hgroup><article  id="nested-data-and-lists">
+</article></slide><slide class=""><hgroup><h2>Strategy for data analysis</h2></hgroup><article  id="strategy-for-data-analysis">
+
+<ul>
+<li><strong>Split</strong> unrelated data into chuncks</li>
+<li><strong>Apply</strong> functions and estimations on each chuck</li>
+<li><strong>Combine</strong> results for final analysis</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>When is it good?</h2></hgroup><article  id="when-is-it-good">
+
+<ul>
+<li>Clustered data</li>
+<li>Better overview</li>
+<li>Larger and Big data</li>
+<li>Efficiency gain</li>
+<li>Improve structure in your analysis</li>
+</ul>
+
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Nested data</h2></hgroup><article  id="nested-data">
+
+</article></slide><slide class=""><hgroup><h2>What is it?</h2></hgroup><article  id="what-is-it">
+
+<ul>
+<li>One way to implement split, apply, combine</li>
+<li><code>tidyr</code> package</li>
+<li><a href='https://github.com/rstudio/cheatsheets/raw/master/purrr.pdf' title=''>Apply Functions Cheat Sheet</a></li>
+<li><code>lists</code> as columns in <code>tibbles</code></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Example</h2></hgroup><article  id="example-1">
+
+<ul>
+<li>Nest the <code>mtcars</code> data based on cylinders</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>df &lt;- mtcars %&gt;% 
+  rownames_to_column(&quot;car&quot;) %&gt;% 
+  as_tibble()
+
+df</pre>
+
+<pre >## # A tibble: 32 x 12
+##    car           mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
+##    &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1 Mazda RX4    21       6  160    110  3.9   2.62  16.5     0     1     4     4
+##  2 Mazda RX4 ~  21       6  160    110  3.9   2.88  17.0     0     1     4     4
+##  3 Datsun 710   22.8     4  108     93  3.85  2.32  18.6     1     1     4     1
+##  4 Hornet 4 D~  21.4     6  258    110  3.08  3.22  19.4     1     0     3     1
+##  5 Hornet Spo~  18.7     8  360    175  3.15  3.44  17.0     0     0     3     2
+##  6 Valiant      18.1     6  225    105  2.76  3.46  20.2     1     0     3     1
+##  7 Duster 360   14.3     8  360    245  3.21  3.57  15.8     0     0     3     4
+##  8 Merc 240D    24.4     4  147.    62  3.69  3.19  20       1     0     4     2
+##  9 Merc 230     22.8     4  141.    95  3.92  3.15  22.9     1     0     4     2
+## 10 Merc 280     19.2     6  168.   123  3.92  3.44  18.3     1     0     4     4
+## # ... with 22 more rows</pre>
+
+</article></slide><slide class=""><hgroup><h2>Example</h2></hgroup><article  id="example-2">
+
+<ul>
+<li>Easy to get an overview</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>df_nested &lt;- df %&gt;% 
+  nest(data = c(-cyl))
+
+df_nested</pre>
+
+<pre >## # A tibble: 3 x 2
+##     cyl            data
+##   &lt;dbl&gt; &lt;list&lt;df[,11]&gt;&gt;
+## 1     6        [7 x 11]
+## 2     4       [11 x 11]
+## 3     8       [14 x 11]</pre>
+
+</article></slide><slide class=""><hgroup><h2>Example</h2></hgroup><article  id="example-3">
+
+<ul>
+<li>We can pluck one out</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>df_nested$data[[1]]</pre>
+
+<pre >## # A tibble: 7 x 11
+##   car              mpg  disp    hp  drat    wt  qsec    vs    am  gear  carb
+##   &lt;chr&gt;          &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 Mazda RX4       21    160    110  3.9   2.62  16.5     0     1     4     4
+## 2 Mazda RX4 Wag   21    160    110  3.9   2.88  17.0     0     1     4     4
+## 3 Hornet 4 Drive  21.4  258    110  3.08  3.22  19.4     1     0     3     1
+## 4 Valiant         18.1  225    105  2.76  3.46  20.2     1     0     3     1
+## 5 Merc 280        19.2  168.   123  3.92  3.44  18.3     1     0     4     4
+## 6 Merc 280C       17.8  168.   123  3.92  3.44  18.9     1     0     4     4
+## 7 Ferrari Dino    19.7  145    175  3.62  2.77  15.5     0     1     5     6</pre>
+
+</article></slide><slide class=""><hgroup><h2>Example</h2></hgroup><article  id="example-4">
+
+<ul>
+<li>Manipulating a nested <code>tibble</code></li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>df_nested_new &lt;- df_nested %&gt;% 
+  mutate(hp_mean = map_dbl(.x = data, .f = ~ mean(.x$hp)))
+
+df_nested_new</pre>
+
+<pre >## # A tibble: 3 x 3
+##     cyl            data hp_mean
+##   &lt;dbl&gt; &lt;list&lt;df[,11]&gt;&gt;   &lt;dbl&gt;
+## 1     6        [7 x 11]   122. 
+## 2     4       [11 x 11]    82.6
+## 3     8       [14 x 11]   209.</pre>
+
+</article></slide><slide class=""><hgroup><h2>Example</h2></hgroup><article  id="example-5">
+
+<ul>
+<li>Unnest it again</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>df_nested_new %&gt;% 
+  unnest(cols = &quot;data&quot;)</pre>
+
+<pre >## # A tibble: 32 x 13
+##      cyl car     mpg  disp    hp  drat    wt  qsec    vs    am  gear  carb
+##    &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1     6 Mazd~  21    160    110  3.9   2.62  16.5     0     1     4     4
+##  2     6 Mazd~  21    160    110  3.9   2.88  17.0     0     1     4     4
+##  3     6 Horn~  21.4  258    110  3.08  3.22  19.4     1     0     3     1
+##  4     6 Vali~  18.1  225    105  2.76  3.46  20.2     1     0     3     1
+##  5     6 Merc~  19.2  168.   123  3.92  3.44  18.3     1     0     4     4
+##  6     6 Merc~  17.8  168.   123  3.92  3.44  18.9     1     0     4     4
+##  7     6 Ferr~  19.7  145    175  3.62  2.77  15.5     0     1     5     6
+##  8     4 Dats~  22.8  108     93  3.85  2.32  18.6     1     1     4     1
+##  9     4 Merc~  24.4  147.    62  3.69  3.19  20       1     0     4     2
+## 10     4 Merc~  22.8  141.    95  3.92  3.15  22.9     1     0     4     2
+## # ... with 22 more rows, and 1 more variable: hp_mean &lt;dbl&gt;</pre>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Use case</h2></hgroup><article  id="use-case">
+
+</article></slide><slide class=""><hgroup><h2>Sampling</h2></hgroup><article  id="sampling">
+
+<p>Why can this be used?</p>
+
+<ul>
+<li>Simple sample</li>
+<li>Population: Persons</li>
+<li>Strata: Gender and Education</li>
+<li>Population size: 1,000,000</li>
+<li>Sample size: 5,000</li>
+<li>Proportional allocation</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>N = 1e6
+n = 5e3</pre>
+
+<p>Very simple version of Signe’s problem.</p>
+
+</article></slide><slide class=""><hgroup><h2>Make a population</h2></hgroup><article  id="make-a-population">
+
+<pre class = 'prettyprint lang-r'>library(tidyverse)
+pop_0 &lt;- tibble(
+  ID = seq_len(N),
+  GENDER = sample(x = c(&quot;F&quot;,&quot;M&quot;), size = N, replace = TRUE),
+  EDUCATION = sample(x = c(&quot;LOW&quot;,&quot;MEDIUM&quot;,&quot;HIGH&quot;), 
+                     size = N, replace = TRUE, prob = c(0.2, 0.5, 0.3))
+)</pre>
+
+</article></slide><slide class=""><hgroup><h2>The new population</h2></hgroup><article  id="the-new-population">
+
+<pre class = 'prettyprint lang-r'>pop_0</pre>
+
+<pre >## # A tibble: 1,000,000 x 3
+##       ID GENDER EDUCATION
+##    &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;    
+##  1     1 M      MEDIUM   
+##  2     2 F      MEDIUM   
+##  3     3 M      HIGH     
+##  4     4 M      LOW      
+##  5     5 M      MEDIUM   
+##  6     6 M      HIGH     
+##  7     7 F      LOW      
+##  8     8 F      MEDIUM   
+##  9     9 F      HIGH     
+## 10    10 M      LOW      
+## # ... with 999,990 more rows</pre>
+
+</article></slide><slide class=""><hgroup><h2>Design</h2></hgroup><article  id="design">
+
+<ol>
+<li>Split by strata</li>
+<li>Calculate number in each</li>
+<li>Calculate proportion of total</li>
+<li>Calculate numbers to draw from each strata</li>
+<li>Draw the sample from each</li>
+<li>Combine them into the final sample</li>
+</ol>
+
+</article></slide><slide class=""><hgroup><h2>Split by strata</h2></hgroup><article  id="split-by-strata">
+
+<ul>
+<li>We use nesting!</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>pop_1 &lt;- pop_0 %&gt;% 
+  nest(POP = c(-GENDER,-EDUCATION)) %&gt;% 
+  print()</pre>
+
+<pre >## # A tibble: 6 x 3
+##   GENDER EDUCATION            POP
+##   &lt;chr&gt;  &lt;chr&gt;     &lt;list&lt;df[,1]&gt;&gt;
+## 1 M      MEDIUM     [249,728 x 1]
+## 2 F      MEDIUM     [250,153 x 1]
+## 3 M      HIGH       [150,360 x 1]
+## 4 M      LOW        [100,178 x 1]
+## 5 F      LOW         [99,722 x 1]
+## 6 F      HIGH       [149,859 x 1]</pre>
+
+</article></slide><slide class=""><hgroup><h2>Calculate number in each</h2></hgroup><article  id="calculate-number-in-each">
+
+<pre class = 'prettyprint lang-r'>pop_2 &lt;- pop_1 %&gt;% 
+  mutate(N = map_int(.x = POP, .f = nrow)) %&gt;% 
+  print()</pre>
+
+<pre >## # A tibble: 6 x 4
+##   GENDER EDUCATION            POP      N
+##   &lt;chr&gt;  &lt;chr&gt;     &lt;list&lt;df[,1]&gt;&gt;  &lt;int&gt;
+## 1 M      MEDIUM     [249,728 x 1] 249728
+## 2 F      MEDIUM     [250,153 x 1] 250153
+## 3 M      HIGH       [150,360 x 1] 150360
+## 4 M      LOW        [100,178 x 1] 100178
+## 5 F      LOW         [99,722 x 1]  99722
+## 6 F      HIGH       [149,859 x 1] 149859</pre>
+
+</article></slide><slide class=""><hgroup><h2>Calculate proportion of total</h2></hgroup><article  id="calculate-proportion-of-total">
+
+<pre class = 'prettyprint lang-r'>pop_3 &lt;- pop_2 %&gt;% 
+  mutate(P = N/sum(N)) %&gt;% 
+  print()</pre>
+
+<pre >## # A tibble: 6 x 5
+##   GENDER EDUCATION            POP      N      P
+##   &lt;chr&gt;  &lt;chr&gt;     &lt;list&lt;df[,1]&gt;&gt;  &lt;int&gt;  &lt;dbl&gt;
+## 1 M      MEDIUM     [249,728 x 1] 249728 0.250 
+## 2 F      MEDIUM     [250,153 x 1] 250153 0.250 
+## 3 M      HIGH       [150,360 x 1] 150360 0.150 
+## 4 M      LOW        [100,178 x 1] 100178 0.100 
+## 5 F      LOW         [99,722 x 1]  99722 0.0997
+## 6 F      HIGH       [149,859 x 1] 149859 0.150</pre>
+
+</article></slide><slide class=""><hgroup><h2>Calculate numbers to draw from each strata</h2></hgroup><article  id="calculate-numbers-to-draw-from-each-strata">
+
+<pre class = 'prettyprint lang-r'>pop_4 &lt;- pop_3 %&gt;% 
+  mutate(n = round(P * sum(N))) %&gt;% 
+  print()</pre>
+
+<pre >## # A tibble: 6 x 6
+##   GENDER EDUCATION            POP      N      P      n
+##   &lt;chr&gt;  &lt;chr&gt;     &lt;list&lt;df[,1]&gt;&gt;  &lt;int&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+## 1 M      MEDIUM     [249,728 x 1] 249728 0.250  249728
+## 2 F      MEDIUM     [250,153 x 1] 250153 0.250  250153
+## 3 M      HIGH       [150,360 x 1] 150360 0.150  150360
+## 4 M      LOW        [100,178 x 1] 100178 0.100  100178
+## 5 F      LOW         [99,722 x 1]  99722 0.0997  99722
+## 6 F      HIGH       [149,859 x 1] 149859 0.150  149859</pre>
+
+</article></slide><slide class=""><hgroup><h2>Draw the sample from each</h2></hgroup><article  id="draw-the-sample-from-each">
+
+<pre class = 'prettyprint lang-r'>pop_5 &lt;- pop_4 %&gt;% 
+  mutate(SAMPLE = map2(.x = POP, .y = n, 
+                       .f = ~ sample_n(tbl = .x, size = .y))) %&gt;% 
+  print()</pre>
+
+<pre >## # A tibble: 6 x 7
+##   GENDER EDUCATION            POP      N      P      n SAMPLE                
+##   &lt;chr&gt;  &lt;chr&gt;     &lt;list&lt;df[,1]&gt;&gt;  &lt;int&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;list&gt;                
+## 1 M      MEDIUM     [249,728 x 1] 249728 0.250  249728 &lt;tibble [249,728 x 1]&gt;
+## 2 F      MEDIUM     [250,153 x 1] 250153 0.250  250153 &lt;tibble [250,153 x 1]&gt;
+## 3 M      HIGH       [150,360 x 1] 150360 0.150  150360 &lt;tibble [150,360 x 1]&gt;
+## 4 M      LOW        [100,178 x 1] 100178 0.100  100178 &lt;tibble [100,178 x 1]&gt;
+## 5 F      LOW         [99,722 x 1]  99722 0.0997  99722 &lt;tibble [99,722 x 1]&gt; 
+## 6 F      HIGH       [149,859 x 1] 149859 0.150  149859 &lt;tibble [149,859 x 1]&gt;</pre>
+
+</article></slide><slide class=""><hgroup><h2>Combine them into the final sample</h2></hgroup><article  id="combine-them-into-the-final-sample">
+
+<pre class = 'prettyprint lang-r'>final_sample &lt;- pop_5 %&gt;% 
+  select(GENDER,EDUCATION,SAMPLE) %&gt;% 
+  unnest(cols = SAMPLE)
+
+nrow(final_sample)</pre>
+
+<pre >## [1] 1000000</pre>
+
+</article></slide><slide class=""><hgroup><h2>Final sample</h2></hgroup><article  id="final-sample">
+
+<pre class = 'prettyprint lang-r'>final_sample</pre>
+
+<pre >## # A tibble: 1,000,000 x 3
+##    GENDER EDUCATION     ID
+##    &lt;chr&gt;  &lt;chr&gt;      &lt;int&gt;
+##  1 M      MEDIUM    875465
+##  2 M      MEDIUM    122908
+##  3 M      MEDIUM     57333
+##  4 M      MEDIUM    684591
+##  5 M      MEDIUM    442060
+##  6 M      MEDIUM    718469
+##  7 M      MEDIUM    535109
+##  8 M      MEDIUM     84558
+##  9 M      MEDIUM    149083
+## 10 M      MEDIUM    770948
+## # ... with 999,990 more rows</pre>
+
+</article></slide><slide class=""><hgroup><h2>Could have been done in one step</h2></hgroup><article  id="could-have-been-done-in-one-step">
+
+<pre class = 'prettyprint lang-r'>pop_final &lt;- pop_0 %&gt;% 
+  nest(POP = c(-GENDER,-EDUCATION)) %&gt;% 
+  mutate(
+    N = map_int(.x = POP, .f = nrow),
+    P = N/sum(N),
+    n = round(P * sum(N)),
+    SAMPLE = map2(.x = POP, .y = n, 
+                       .f = ~ sample_n(tbl = .x, size = .y))
+    )</pre>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Exercises again</h2></hgroup><article  id="exercises-again">
 

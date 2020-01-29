@@ -24,6 +24,16 @@ A bit was pushed from the recap yesterday.
 1. Use case
 1. Exercises again
 
+## Why is it important?
+
+- From [The tidy tools manifesto](https://cran.r-project.org/web/packages/tidyverse/vignettes/manifesto.html)
+
+1. There are four basic principles to a tidy API:
+1. Reuse existing data structures.
+1. Compose simple functions with the pipe.
+1. Embrace functional programming.
+1. Design for humans.
+
 # Functions
 
 ## Functions in general
@@ -39,6 +49,11 @@ A bit was pushed from the recap yesterday.
 ```{r}
 min
 survey::svydesign
+```
+
+## Existing functions
+
+```{r}
 `%in%`
 ```
 
@@ -105,8 +120,6 @@ new_function(
 
 # Loops and indexes
 
-## Loops
-
 ## Indexes
 
 - Two different ways to index
@@ -147,15 +160,486 @@ x[[3]]
 
 - No longer a `list`!
 
+## Loops
+
+- Repeating an action
+- Manipulating list based on index
+- Different loops:
+- `for`: Loop over a sequence
+- `while` Loop until a condition is no longer `TRUE` (be careful!)
+
+## Loops - Example
+
+```{r}
+for (i in 1:2){
+  print(i)
+}
+
+for (i in seq_len(3)) {
+  print(i)
+}
+```
+
+## Loops - Example
+
+```{r}
+x <- 1
+while (x < 5){
+  print(x)
+  x <- x + 1
+}
+```
+
+## Loops - Example
+
+```{r, eval=FALSE}
+x <- 1
+while (x > 0){
+  print(x)
+  x <- x + 1
+}
+```
+
+- Why is this a bad idea?
+
+# Apply family
+
+## Recap on apply/lapply
+
+- Alternative to loops
+- More functional programming
+- `lapply`: When you want to evaluate the same function on a list of elements individually
+- `apply`: When you want to calculate a function across a `matrix`
+
+```{r, eval=FALSE}
+lapply(X, FUN)
+apply(X, MARGIN, FUN, ...)
+```
+
+## Example with lappy
+
+- Calculate the sum of several `vectors` in a `list`:
+
+```{r}
+x <- list(
+  a = 1:3,
+  b = 10^(1:5)
+)
+```
+
+## Example with lappy
+
+```{r}
+x
+lapply(X = x, FUN = mean)
+```
+
+## Example with apply
+
+```{r}
+x <- matrix(data = (1:9)^2, nrow = 3)
+x
+```
+
+## Example with apply
+
+- Find the mean across the two dimensions:
+
+```{r}
+apply(X = x, MARGIN = 1, FUN = mean)
+apply(X = x, MARGIN = 2, FUN = mean)
+```
+
 # Purrr and map
+
+## The purrr package
+
+- Another `tidyverse` package
+- Alternative to `lapply`/`apply`
+- Pipe-friendly
+- Consistent output
+- [Apply Functions Cheat Sheet](https://github.com/rstudio/cheatsheets/raw/master/purrr.pdf)
+
+## Most important functions
+
+- `map`: Very similar to lapply
+- `map2`: Two argument version of `map`
+- `pmap`: Unlimited number of arguments
+- `walk`: Only for side effects
+- `reduce`: Combining intermediate results
+- `accumulate`: Combine but also keep intermediate results
+
+## Control the output
+
+- All `map` functions returns a list per default
+- Use suffix to change that
+- The list is then coerced into the desired class
+- `_dbl`: Double or numeric
+- `_int`: Integer
+- `_chr`: Character
+- `_lgl`: Logical
+- `_dfr`: Data.frame (row binding)
+- `_dfc`: Data.frame (column binding)
+
+```{r, echo=FALSE, message=FALSE}
+library(tidyverse)
+```
+
+## map function
+
+```{r, eval=FALSE}
+map(.x, .f, ...)
+```
+
+```{r}
+x <- list(
+  a = 1:3,
+  b = 10^(1:5)
+)
+```
+
+## map function
+
+```{r}
+map(.x = x, .f = mean)
+x %>% map_dbl(.f = mean)
+```
+
+## map2 function
+
+```{r}
+x <- list(
+  a = 1:3,
+  b = 10^(1:5)
+)
+
+y <- list(
+  a = 10:30,
+  b = 7^(2:7)
+)
+
+f <- function(x1,x2){
+  out <- sum(x2)/sum(x1)
+  return(out)
+}
+
+```
+
+## map2 function
+
+```{r}
+map2(.x = x, .y = y, .f = f)
+```
+
+## walk function
+
+```{r, eval=FALSE}
+map(.x = 1:2, .f = print)
+walk(.x = 1:2, .f = print)
+```
+
+- What result do you expect?
+
+## walk function
+
+```{r}
+map(.x = 1:2, .f = print)
+walk(.x = 1:2, .f = print)
+```
+
+## walk function
+
+- `print` function is a "side-effect" function that prints the object
+- But invisible it returns the same object
+
+```{r}
+2 %>% 
+  print() %>% 
+  paste0()
+```
+
+- When you dont want the original output or to keep a list structure use `walk`
+- Good when using plotting functions
+
+## reduce and accumulate
+
+- Result of two first are passed on as the first argument in the next evaluation
+- List of `data.frames`
+
+```{r}
+df1 <- data.frame(id = 1:3)
+df2 <- data.frame(id = 2:3)
+df3 <- data.frame(id = 3)
+
+l <- list(df1,df2,df3)
+```
+
+## reduce and accumulate
+
+```{r}
+l
+```
+
+## reduce and accumulate
+
+- Join them all together with `inner_join`
+- What do we expect?
+
+## reduce and accumulate
+
+- Join them all together with `inner_join`
+- What do we expect?
+
+```{r}
+reduce(.x = l, .f = inner_join, by = "id")
+```
+
+## reduce and accumulate
+
+- What about `accumulate?`
+
+## reduce and accumulate
+
+- What about `accumulate?`
+
+```{r}
+accumulate(.x = l, .f = inner_join, by = "id")
+```
 
 # Exercises
 
+# Lambda functions
+
+## Lambda functions in purrr
+
+- `map` etc. requires a function
+- Not all calculations need is relevant again
+- Why explicitly assign a function to it?
+
+## Tradtional way
+
+```{r}
+squared
+map_dbl(.x = 1:3, .f = squared)
+```
+
+## Lambda way
+
+```{r}
+map_dbl(.x = 1:3, ~ .x^2)
+```
+
+- Formel interface/tilde expansion
+- Easyish to read
+- Recomdable instead of defining one-time use functions
+
+## And it scales!
+
+```{r}
+map2_dbl(.x = 1:3, .y = 11:13, .f = ~ .x/.y)
+new_function
+pmap_dbl(.l = list(1:3, 11:13, 21:23), 
+         .f = ~ (..1+..2)/..3)
+```
+
 # Split, apply, combine
 
-# Nested data and lists
+## Strategy for data analysis
+
+- **Split** unrelated data into chuncks
+- **Apply** functions and estimations on each chuck
+- **Combine** results for final analysis
+
+## When is it good?
+
+- Clustered data
+- Better overview
+- Larger and Big data
+- Efficiency gain
+- Improve structure in your analysis
+
+# Nested data
+
+## What is it?
+
+- One way to implement split, apply, combine
+- `tidyr` package
+- [Apply Functions Cheat Sheet](https://github.com/rstudio/cheatsheets/raw/master/purrr.pdf)
+- `lists` as columns in `tibbles`
+
+## Example
+
+- Nest the `mtcars` data based on cylinders
+
+```{r}
+df <- mtcars %>% 
+  rownames_to_column("car") %>% 
+  as_tibble()
+
+df
+```
+
+## Example
+
+- Easy to get an overview
+
+```{r}
+df_nested <- df %>% 
+  nest(data = c(-cyl))
+
+df_nested
+```
+
+## Example
+
+- We can pluck one out
+
+```{r}
+df_nested$data[[1]]
+```
+
+## Example
+
+- Manipulating a nested `tibble`
+
+```{r}
+df_nested_new <- df_nested %>% 
+  mutate(hp_mean = map_dbl(.x = data, .f = ~ mean(.x$hp)))
+
+df_nested_new
+```
+
+## Example
+
+- Unnest it again
+
+```{r}
+df_nested_new %>% 
+  unnest(cols = "data")
+```
 
 # Use case
+
+## Sampling
+
+Why can this be used?
+
+- Simple sample
+- Population: Persons
+- Strata: Gender and Education
+- Population size: 1,000,000
+- Sample size: 5,000
+- Proportional allocation
+
+```{r}
+N = 1e6
+n = 5e3
+```
+
+
+Very simple version of Signe's problem.
+
+## Make a population
+
+```{r, message=FALSE}
+library(tidyverse)
+pop_0 <- tibble(
+  ID = seq_len(N),
+  GENDER = sample(x = c("F","M"), size = N, replace = TRUE),
+  EDUCATION = sample(x = c("LOW","MEDIUM","HIGH"), 
+                     size = N, replace = TRUE, prob = c(0.2, 0.5, 0.3))
+)
+```
+
+## The new population
+
+```{r}
+pop_0
+```
+
+## Design
+
+1. Split by strata
+1. Calculate number in each
+1. Calculate proportion of total
+1. Calculate numbers to draw from each strata
+1. Draw the sample from each
+1. Combine them into the final sample
+
+## Split by strata
+
+- We use nesting!
+
+```{r, message=FALSE}
+pop_1 <- pop_0 %>% 
+  nest(POP = c(-GENDER,-EDUCATION)) %>% 
+  print()
+```
+
+## Calculate number in each
+
+```{r}
+pop_2 <- pop_1 %>% 
+  mutate(N = map_int(.x = POP, .f = nrow)) %>% 
+  print()
+```
+
+## Calculate proportion of total
+
+```{r}
+pop_3 <- pop_2 %>% 
+  mutate(P = N/sum(N)) %>% 
+  print()
+  
+```
+
+## Calculate numbers to draw from each strata
+
+```{r}
+pop_4 <- pop_3 %>% 
+  mutate(n = round(P * sum(N))) %>% 
+  print()
+```
+
+## Draw the sample from each
+
+```{r}
+pop_5 <- pop_4 %>% 
+  mutate(SAMPLE = map2(.x = POP, .y = n, 
+                       .f = ~ sample_n(tbl = .x, size = .y))) %>% 
+  print()
+```
+
+## Combine them into the final sample
+
+```{r}
+final_sample <- pop_5 %>% 
+  select(GENDER,EDUCATION,SAMPLE) %>% 
+  unnest(cols = SAMPLE)
+
+nrow(final_sample)
+```
+
+## Final sample
+
+```{r}
+final_sample
+```
+
+## Could have been done in one step
+
+```{r}
+pop_final <- pop_0 %>% 
+  nest(POP = c(-GENDER,-EDUCATION)) %>% 
+  mutate(
+    N = map_int(.x = POP, .f = nrow),
+    P = N/sum(N),
+    n = round(P * sum(N)),
+    SAMPLE = map2(.x = POP, .y = n, 
+                       .f = ~ sample_n(tbl = .x, size = .y))
+    )
+  
+```
 
 # Exercises again
 

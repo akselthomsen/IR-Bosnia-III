@@ -1,0 +1,14 @@
+---
+title: "Functional Programming - Exercises 2"
+author: "Aksel Thomsen"
+date: "Statistical Programming with R"
+output: html_document
+---
+
+None of the problems depend on each other, so if you are stuck just continue to the next.
+
+If in need of a hint just ask or consult one of the many cheat sheets ;)
+
+Each problem can be solved in different ways.
+
+## Problem 6

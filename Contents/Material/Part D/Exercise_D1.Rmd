@@ -5,6 +5,12 @@ date: "Statistical Programming with R"
 output: html_document
 ---
 
+None of the problems depend on each other, so if you are stuck just continue to the next.
+
+If in need of a hint just ask or consult one of the many cheat sheets ;)
+
+Each problem can be solved in different ways.
+
 ## Problem 1
 
 Create your own function to calculate the cummulative sum of a vector.
@@ -20,7 +26,7 @@ The function should return the same.
 
 ## Problem 2
 
-Make a function that given two inputs of numeric vectors returns the parwise mean.
+Make a function that given two inputs of numeric vectors returns the pairwise mean.
 E.g. the following input:
 
 ```{r}
@@ -35,3 +41,27 @@ c(1.5,4.5,4.5)
 ```
 
 ## Problem 3
+
+I have uploaded 5 different csv files with data on cars to the webpage (cars_1.csv - cars_5.csv).
+Download and read them all into R using functional programming, and combine them into one common `data.frame`.
+
+## Problem 4
+
+Create a histogram of each numeric variable in the cars data.
+It does not mather if you use `mtcars` or the data from Problem 3, nor wether the histogram is produced with base `hist` or produced with `ggplot`.
+
+## Problem 5
+
+Can you expand the idea in problem 2 into creating a function or small code chunck, that calculates the "paiwise" (or index-wise) mean across any given number of vectors?
+Inspired by the `pmin` function:
+
+```{r}
+pmin(
+  c(1,3,10,5), 
+  c(4,2,11,3))
+
+pmin(
+  c(1,3,10,5),
+  c(4,2,11,3),
+  c(7,-2,9,8))
+```
