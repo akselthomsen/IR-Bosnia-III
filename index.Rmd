@@ -182,10 +182,10 @@ type `Yes` in the console and press the return key.
     - [Solution D2](Contents/Material/Part D/Solution_D2.html){target="_blank"}
     - Data:
        - [cars_1.csv](Contents/Material/Part D/cars_1.csv){target="_blank"}
-       - [cars_2.csv](Contents/Material/Part D/cars_1.csv){target="_blank"}
-       - [cars_3.csv](Contents/Material/Part D/cars_1.csv){target="_blank"}
-       - [cars_4.csv](Contents/Material/Part D/cars_1.csv){target="_blank"}
-       - [cars_5.csv](Contents/Material/Part D/cars_1.csv){target="_blank"}
+       - [cars_2.csv](Contents/Material/Part D/cars_2.csv){target="_blank"}
+       - [cars_3.csv](Contents/Material/Part D/cars_3.csv){target="_blank"}
+       - [cars_4.csv](Contents/Material/Part D/cars_4.csv){target="_blank"}
+       - [cars_5.csv](Contents/Material/Part D/cars_5.csv){target="_blank"}
        - [mydata_example.Rda](Contents/Material/Part D/mydata_example.Rda){target="_blank"}
 
 - Part E: Preparing large data for analysis
