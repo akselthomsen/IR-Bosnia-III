@@ -148,9 +148,9 @@ type `Yes` in the console and press the return key.
     
 - Part C: Estimation and calibration
 
-    - [Lecture D](Contents/Material/Part C/Estimation.html){target="_blank"}
-    - [Exercise D](Contents/Material/Part C/Estimation_Exercises.html){target="_blank"}
-    - [Solution D](Contents/Material/Part C/Estimation_Exercises.html){target="_blank"}
+    - [Lecture C](Contents/Material/Part C/Estimation.html){target="_blank"}
+    - [Exercise C](Contents/Material/Part C/Estimation_Exercises.html){target="_blank"}
+    - [Solution C](Contents/Material/Part C/Estimation_Exercises.html){target="_blank"}
     - Data: Reuse from Part B
 
 ## Column 2
@@ -168,16 +168,24 @@ type `Yes` in the console and press the return key.
 
 - Part C: Estimation and calibration (continued from yesterday)
 
-    - [Lecture D](Contents/Material/Part C/Estimation.html){target="_blank"}
-    - [Exercise D](Contents/Material/Part C/Estimation_Exercises.html){target="_blank"}
-    - [Solution D](Contents/Material/Part C/Estimation_Exercises.html){target="_blank"}
+    - [Lecture C](Contents/Material/Part C/Estimation.html){target="_blank"}
+    - [Exercise C](Contents/Material/Part C/Estimation_Exercises.html){target="_blank"}
+    - [Solution C](Contents/Material/Part C/Estimation_Exercises.html){target="_blank"}
     - Data: Reuse from Part B
     
 - Part D: Functional Programming
 
-    - [Lecture E](Contents/Material/Part D/Lecture.html){target="_blank"}
-    - [Exercise E](Contents/Material/Part D/Exercise.html){target="_blank"}
-    - [Solution E](Contents/Material/Part D/Exercise.html){target="_blank"}
+    - [Lecture D](Contents/Material/Part D/Lecture_D.html){target="_blank"}
+    - [Exercise D1](Contents/Material/Part D/Exercise_D1.html){target="_blank"}
+    - [Solution D1](Contents/Material/Part D/Solution_D1.html){target="_blank"}
+    - [Exercise D2](Contents/Material/Part D/Exercise_D2.html){target="_blank"}
+    - [Solution D2](Contents/Material/Part D/Solution_D2.html){target="_blank"}
+    - Data:
+       - [cars_1.csv](Contents/Material/Part D/cars_1.csv){target="_blank"}
+       - [cars_2.csv](Contents/Material/Part D/cars_1.csv){target="_blank"}
+       - [cars_3.csv](Contents/Material/Part D/cars_1.csv){target="_blank"}
+       - [cars_4.csv](Contents/Material/Part D/cars_1.csv){target="_blank"}
+       - [cars_5.csv](Contents/Material/Part D/cars_1.csv){target="_blank"}
 
 - Part E: Preparing large data for analysis
 
