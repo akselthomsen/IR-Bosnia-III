@@ -129,13 +129,20 @@ Direct estimate:
 Calibrated estimate:
 
 ```{r}
-(cgoal <- c('(Intercept)'=nrow(mydata_estimation), 'Nr_empl_reg'=sum(mydata_estimation$Nr_empl_reg)))
+(cgoal <- c('(Intercept)'=nrow(mydata_estimation), 
+            'Nr_empl_reg'=sum(mydata_estimation$Nr_empl_reg)))
 
 cal.svyobj <- calibrate (srs.design.prop,
                          formula=~Nr_empl_reg,
                          population=cgoal)
 
 (empl20.cal <- svytotal (~Nr_empl_2020, cal.svyobj))
+
+```
+
+***
+
+```{r}
 
 mysampprop$cw <- weights(cal.svyobj)
 
@@ -193,11 +200,14 @@ cal.svyobj.opt <- calibrate (srs.design.opt,
                          population=cgoal)
 
 (empl20.cal.opt <- svytotal (~Nr_empl_2020, cal.svyobj.opt))
+```
 
+***
+
+```{r}
 mysampopt$cw <- weights(cal.svyobj.opt)
 
 mysampopt$gw <- mysampopt$cw / mysampopt$dw
-
 ```
 
 ***

@@ -3244,7 +3244,8 @@ srs.design.opt &lt;- svydesign(ids=~1,
 
 <p>Calibrated estimate:</p>
 
-<pre class = 'prettyprint lang-r'>(cgoal &lt;- c(&#39;(Intercept)&#39;=nrow(mydata_estimation), &#39;Nr_empl_reg&#39;=sum(mydata_estimation$Nr_empl_reg)))</pre>
+<pre class = 'prettyprint lang-r'>(cgoal &lt;- c(&#39;(Intercept)&#39;=nrow(mydata_estimation), 
+            &#39;Nr_empl_reg&#39;=sum(mydata_estimation$Nr_empl_reg)))</pre>
 
 <pre >## (Intercept) Nr_empl_reg 
 ##       10000     2627857</pre>
@@ -3257,6 +3258,8 @@ srs.design.opt &lt;- svydesign(ids=~1,
 
 <pre >##                total    SE
 ## Nr_empl_2020 2629391 13136</pre>
+
+</article></slide><slide class=""><hgroup><h2></h2></hgroup><article >
 
 <pre class = 'prettyprint lang-r'>mysampprop$cw &lt;- weights(cal.svyobj)
 
@@ -3318,6 +3321,8 @@ mysampprop$gw &lt;- mysampprop$cw / mysampprop$dw</pre>
 
 <pre >##                total     SE
 ## Nr_empl_2020 2621193 7163.2</pre>
+
+</article></slide><slide class=""><hgroup><h2></h2></hgroup><article >
 
 <pre class = 'prettyprint lang-r'>mysampopt$cw &lt;- weights(cal.svyobj.opt)
 
