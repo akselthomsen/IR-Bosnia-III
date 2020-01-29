@@ -26,6 +26,41 @@ The function should return the same.
 
 **Solution 1**
 
+```{r}
+x <- 1:10
+y <- x
+for (i in 2:10) {
+  y[[i]] <- x[[i]] + y[[i-1]]
+}
+x
+y
+cumsum(x)
+
+cumulative_sum <- function(x){
+  y <- x
+  for (i in 2:length(x)) {
+    y[[i]] <- x[[i]] + y[[i-1]]
+  }
+  return(y)
+}
+
+cumulative_sum(1:7)
+```
+
+**Solution 2**
+
+```{r}
+library(purrr)
+accumulate(.x = 1:7, .f = sum)
+
+cumulative_sum <- function(x){
+  y <- accumulate(.x = x, .f = sum)
+  return(y)
+}
+
+cumulative_sum(1:9)
+```
+
 ## Problem 2
 
 Make a function that given two inputs of numeric vectors returns the pairwise mean.
@@ -43,6 +78,33 @@ c(1.5,4.5,4.5)
 ```
 
 **Solution 1**
+
+```{r,error=TRUE}
+
+pmean <- function(x,y){
+ stopifnot(length(x) == length(y))
+  stopifnot(is.numeric(x) & is.numeric(y))
+  out <- numeric(length = length(x))
+  for (i in seq_len(length(x))) {
+    out[[i]] <- mean(x[[i]],y[[i]])
+  }
+
+return(out) 
+}
+
+pmean(x,y)
+pmean(x,"a")
+pmean("A",1)
+```
+
+**Solution 2**
+
+```{r}
+x
+y
+map2(.x = x, .y = y, .f = c) %>% 
+  map_dbl(.f = mean)
+```
 
 ## Problem 3
 

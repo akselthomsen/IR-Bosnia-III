@@ -1,0 +1,13 @@
+---
+title: "Preparation for tomorrow"
+author: "Aksel Thomsen"
+date: "Statistical Programming with R"
+output:
+  ioslides_presentation:
+    css: css/style.css
+    logo: css/logo_en.png
+    transition: 0
+    self_contained: TRUE   
+---
+
+# 
