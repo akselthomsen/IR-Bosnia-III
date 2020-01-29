@@ -177,7 +177,7 @@ type `Yes` in the console and press the return key.
 
     - [Lecture D](Contents/Material/Part D/Lecture_D.html){target="_blank"}
     - [Exercise D1](Contents/Material/Part D/Exercise_D1.html){target="_blank"}
-    - [Solution D1](Contents/Material/Part D/Solution_D1.html){target="_blank"}
+    - [Solution D1](Contents/Material/Part D/Solutions_D1.html){target="_blank"}
     - [Exercise D2](Contents/Material/Part D/Exercise_D2.html){target="_blank"}
     - [Solution D2](Contents/Material/Part D/Solution_D2.html){target="_blank"}
     - Data:
