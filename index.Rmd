@@ -44,9 +44,11 @@ We adapt the course as we go. To ensure that you work with the latest iteration 
 
 If you want access to the underlying R files, that creates the presentation and more, they can be accesed from [GitHub](https://github.com/akselthomsen/IR-Bosnia-III).
 
+*Update 29 January*: Due to time constraints, the two last subjects has been combined into a smaller section on analysing large data.
+
 ## Column 2
 
-### Course schedule (provisional)
+### Course schedule 
 
 | Time        | Topic                                           |
 |:------------|:------------------------------------------------|
@@ -60,9 +62,10 @@ If you want access to the underlying R files, that creates the presentation and 
 | 09.00-12.00 | Estimation and calibration *continued*          |
 |             | Functional Programming (D)                      |
 |             | *Break*                                         |             
-| 13.00-15.30 | Preparing large data for analysis (E)           |
+| 13.00-15.30 | Functional Programming *continued*              |
 | *Thursday*  |                                                 |
-| 09.00-12.00 | Analysis of large data (F)                      |
+| 09.00-11.00 | Analysing large data (F)                        |
+| 11.00-12.00 | Finish mission report                           |
 
 # How to prepare
 
@@ -188,12 +191,6 @@ type `Yes` in the console and press the return key.
        - [cars_5.csv](Contents/Material/Part D/cars_5.csv){target="_blank"}
        - [mydata_example.Rda](Contents/Material/Part D/mydata_example.Rda){target="_blank"}
 
-- Part E: Preparing large data for analysis
-
-    - [Lecture E](Contents/Material/Part E/Lecture.html){target="_blank"}
-    - [Exercise E](Contents/Material/Part E/Exercise.html){target="_blank"}
-    - [Solution E](Contents/Material/Part E/Exercise.html){target="_blank"}
-
 ## Column 2
 
 ### Useful references
@@ -208,11 +205,11 @@ type `Yes` in the console and press the return key.
 
 ### Thursdays's materials
 
-- Part F: Analysis of large data
+- Part E: Analysing large data
 
-    - [Lecture F](Contents/Material/Part F/Lecture.html){target="_blank"}
-    - [Exercise F](Contents/Material/Part F/Exercise.html){target="_blank"}
-    - [Solution F](Contents/Material/Part F/Exercise.html){target="_blank"}
+    - [Lecture E](Contents/Material/Part E/Lecture.html){target="_blank"}
+    - [Exercise E](Contents/Material/Part E/Exercise.html){target="_blank"}
+    - [Solution E](Contents/Material/Part E/Exercise.html){target="_blank"}
 
 ## Column 2
 
@@ -234,6 +231,7 @@ The following references are currently available for free, either as pdfs or as 
 - [Data Analysis and Graphics Using R](http://www.pindex.com/uploads/post_docs/Maindonald%20Data%20Analysis%20and%20Graphics(PINDEX-DOC-6953).pdf): a detailed book that covers a lot about categorical data analysis and fitting `glm`s in `R`.
 - [Happy Git and GitHub for the useR ](https://happygitwithr.com/index.html): a great introduction to version control using Git and GitHub together with RStudio. Written by Jenny Bryan in a very concise style. Highly recommended!
 - [Tidyverse Cheat Sheets](https://rstudio.com/resources/cheatsheets/): a collection of excellent cheat sheets when using tidyverse functions. Highly recomendable!
+- [Combining and Analyzing Complex Data](https://www.coursera.org/learn/data-collection-analytics-project): Check out this Cousera course
 
 <!-- ## Column 2 -->
 
