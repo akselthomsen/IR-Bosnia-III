@@ -403,6 +403,26 @@ x</code></pre>
 </div>
 <div id="problem-5" class="section level2">
 <h2>Problem 5</h2>
+<p>Calculate the minimum for each column in a <code>data.frame</code>. Either though a small script or a function.</p>
+<p>For example the data:</p>
+<pre class="r"><code>library(tidyverse)
+tibble(x = 1:3,
+       y = c(500,60,70))</code></pre>
+<pre><code>## # A tibble: 3 x 2
+##       x     y
+##   &lt;int&gt; &lt;dbl&gt;
+## 1     1   500
+## 2     2    60
+## 3     3    70</code></pre>
+<p>Should give the result:</p>
+<pre class="r"><code>tibble(x = 1, y = 60)</code></pre>
+<pre><code>## # A tibble: 1 x 2
+##       x     y
+##   &lt;dbl&gt; &lt;dbl&gt;
+## 1     1    60</code></pre>
+</div>
+<div id="problem-6" class="section level2">
+<h2>Problem 6</h2>
 <p>Can you expand the idea in problem 2 into creating a function or small code chunck, that calculates the “paiwise” (or index-wise) mean across any given number of vectors? Inspired by the <code>pmin</code> function:</p>
 <pre class="r"><code>pmin(
   c(1,3,10,5), 

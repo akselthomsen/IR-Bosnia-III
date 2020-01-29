@@ -18,6 +18,8 @@ So where the time in seconds to complete a quarter-mile (`qsec`) is a linear fun
 Afterwards extract the coefficient (`a` & `b` in the equation) into seperate variables.
 Hint: Experiment with the `coef` function.
 
+**Solution**
+
 ## Problem 8
 
 Divide the `mtcars` data in subsets based on the number of gears (`gear`) each car has.
@@ -25,6 +27,8 @@ Divide the `mtcars` data in subsets based on the number of gears (`gear`) each c
 Now estimate the same model from Problem 7, but this time estimate one individual model for each of these subset.
 
 Finally compare the results.
+
+**Solution**
 
 ## Problem 9
 
@@ -44,7 +48,11 @@ Draw a simple stratified sample with the following specifications:
 - Strata: `region` & `sector`
 - Proportional allocation
 
+**Solution**
+
 ## Problem 10
 
 In stead of proportional allocation can you draw a sample with optimal allocation based on the variance of `turnover_2019`?
 Otherwise the same specifications as Problem 9.
+
+**Solution**

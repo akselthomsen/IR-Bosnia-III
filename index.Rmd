@@ -170,7 +170,7 @@ type `Yes` in the console and press the return key.
 
     - [Lecture C](Contents/Material/Part C/Estimation.html){target="_blank"}
     - [Exercise C](Contents/Material/Part C/Estimation_Exercises.html){target="_blank"}
-    - [Solution C](Contents/Material/Part C/Estimation_Exercises.html){target="_blank"}
+    - [Solution C](Contents/Material/Part C/Estimation_Exercises_Solutions.html){target="_blank"}
     - Data: Reuse from Part B
     
 - Part D: Functional Programming
@@ -186,6 +186,7 @@ type `Yes` in the console and press the return key.
        - [cars_3.csv](Contents/Material/Part D/cars_1.csv){target="_blank"}
        - [cars_4.csv](Contents/Material/Part D/cars_1.csv){target="_blank"}
        - [cars_5.csv](Contents/Material/Part D/cars_1.csv){target="_blank"}
+       - [mydata_example.Rda](Contents/Material/Part D/mydata_example.Rda){target="_blank"}
 
 - Part E: Preparing large data for analysis
 

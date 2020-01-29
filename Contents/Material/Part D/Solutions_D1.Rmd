@@ -24,6 +24,8 @@ cumsum(x)
 
 The function should return the same.
 
+**Solution 1**
+
 ## Problem 2
 
 Make a function that given two inputs of numeric vectors returns the pairwise mean.
@@ -40,15 +42,21 @@ Should return:
 c(1.5,4.5,4.5)
 ```
 
+**Solution 1**
+
 ## Problem 3
 
 I have uploaded 5 different csv files with data on cars to the webpage (cars_1.csv - cars_5.csv).
 Download and read them all into R using functional programming, and combine them into one common `data.frame`.
 
+**Solution 1**
+
 ## Problem 4
 
 Create a histogram of each numeric variable in the cars data.
 It does not mather if you use `mtcars` or the data from Problem 3, nor wether the histogram is produced with base `hist` or produced with `ggplot`.
+
+**Solution 1**
 
 ## Problem 5
 
@@ -68,6 +76,8 @@ Should give the result:
 tibble(x = 1, y = 60)
 ```
 
+**Solution 1**
+
 ## Problem 6
 
 Can you expand the idea in problem 2 into creating a function or small code chunck, that calculates the "paiwise" (or index-wise) mean across any given number of vectors?
@@ -83,3 +93,6 @@ pmin(
   c(4,2,11,3),
   c(7,-2,9,8))
 ```
+
+**Solution 1**
+
