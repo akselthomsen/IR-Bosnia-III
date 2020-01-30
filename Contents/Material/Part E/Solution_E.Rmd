@@ -1,6 +1,237 @@
 ---
-title: "Analysing large data - Solutions"
+title: "Analysing large data - Solution"
 author: "Aksel Thomsen"
 date: "Statistical Programming with R"
 output: html_document
 ---
+
+In this exercise we will try to recreate a map of sailing rutes in Denmark.
+It is a good example on how you can gain a lot of information by applying a quite simple analysis to a large amount of data.
+
+## Problem 1
+
+Here we want to only keep the relevant information in the data.
+The analysis requires the position of the moving ships.
+
+One way of restricting the data is as follows:
+
+1. Read any one of the csv files into R
+1. Select only the relevant variables
+1. Filter so you onlt have the relevant observations
+
+```{r, message=FALSE}
+library(tidyverse)
+df1 <- readr::read_csv("aisdk_201902.csv")
+```
+
+```{r}
+head(df1)
+```
+
+```{r}
+df2 <- df1 %>% 
+  select(Latitude,Longitude,SOG) %>% 
+  filter(!is.na(SOG),SOG>0)
+```
+
+```{r}
+df2
+```
+
+## Problem 2
+
+Can you apply the same restrictions to all five CSV files and combine them to one data ready for analysis?
+
+If you are running out of RAM use the `n_max` argument to `readr::read_csv` to limit how many observations you include. For this specific problem it is okay not include all.
+
+```{r}
+ais_files <- list.files(pattern = "aisdk")
+
+ais_files
+```
+
+```{r}
+df1_all <- purrr::map(.x = ais_files, .f = readr::read_csv, n_max = 1000)
+```
+
+```{r}
+df1_all
+```
+
+```{r}
+
+df2_all <- df1_all %>% 
+  purrr::map(
+    ~ .x %>% 
+      select(Latitude,Longitude,SOG) %>% 
+      filter(!is.na(SOG),SOG>0)
+  )
+
+df2_all
+
+df_combined <- bind_rows(df2_all)
+
+df_combined
+```
+
+
+## Problem 3
+
+Create a `disk.frame` in stead based on the CSV files.
+Remember to run the setup code after loading the package.
+
+Hint: To save developing time start with only using one CSV file or just use a single one.
+
+- How many chunks is it divided in?
+- How many observations do they have?
+
+**Solution**
+
+```{r,message=FALSE}
+library(disk.frame)
+# this will set up disk.frame with multiple workers
+setup_disk.frame()
+# this will allow unlimited amount of data to be passed from worker to worker
+options(future.globals.maxSize = Inf)
+```
+
+```{r}
+ais_files <- list.files(pattern = "aisdk")
+
+ais_df <- csv_to_disk.frame(infile = ais_files, outdir = "/ais.df")
+
+ais_df
+```
+
+```{r}
+n_obs <- ais_df %>% 
+  delayed(.f = nrow)
+
+collect_list(n_obs)
+```
+
+## Problem 4
+
+Apply the same restrictions from problem 1 & 2 to the `disk.frame`.
+
+```{r}
+ais_df_restricted <- ais_df %>% 
+  select(Latitude,Longitude,SOG) %>% 
+  filter(!is.na(SOG),SOG>0)
+
+ais_df_restricted
+
+# collect(ais_df_restricted)
+```
+
+## Problem 5
+
+- Define a 1000 x 1000 meter grid
+- A simple way is just to divide the coordinates with 1000 and round them
+- Calculate the number of observations in each grid over the 5 days?
+
+```{r}
+head(ais_df_restricted)
+
+ais_df_grid <- ais_df_restricted %>% 
+  mutate(X = round(Latitude, digits = 2),
+         Y = round(Longitude, digits = 2))
+
+head(ais_df_grid)
+```
+
+```{r}
+ais_df_sum <- ais_df_grid %>% 
+  chunk_group_by(X,Y) %>% 
+  chunk_summarise(N = n())
+
+ais_df_sum <- collect(ais_df_sum)
+```
+
+```{r}
+ais_df_sum
+
+ais_df_sum2 <- ais_df_sum %>% 
+  group_by(X,Y) %>% 
+  summarise(N = sum(N)) %>% 
+  ungroup()
+
+ais_df_sum2
+
+ais_df_sum2 %>% 
+  arrange(desc(N)) %>% 
+  head(10)
+```
+
+## Problem 6
+
+We can plot Denmark as follows (from the first course):
+
+```{r, message=FALSE}
+library(tidyverse)
+library(sf)
+
+denmark <- st_read("DK_map.shp")
+
+ggplot() +
+  geom_sf(data = denmark) +
+  theme_minimal()
+```
+
+Use the data from problem 5 to make a heatmap of the most transited waters.
+Hint: Plot the grids on top colour encoded.
+
+```{r}
+ais_df_filtered <- ais_df_sum2 %>% 
+  filter(Y > 7, Y < 16, X > 54, X < 58)
+```
+
+```{r}
+ggplot(data = ais_df_filtered) +
+  geom_point(mapping = aes(x = Y, y = X, colour = log(N))) +
+  scale_colour_viridis_c()
+```
+
+```{r}
+ais_sf <- ais_df_filtered %>% 
+  mutate(X_real = Y, Y_real = X) %>% 
+  st_as_sf(coords = c("X_real","Y_real")) %>% 
+  st_set_crs(value = 4326)
+```
+
+```{r}
+ais_sf
+```
+
+```{r}
+ggplot() +
+  geom_sf(data = ais_sf, mapping = aes(colour = N)) +
+  scale_colour_viridis_c()
+```
+
+
+```{r}
+ggplot() +
+  geom_sf(data = denmark) +
+  theme_minimal()
+```
+
+```{r}
+ggplot() +
+  geom_sf(data = denmark) +
+  geom_sf(data = ais_sf, mapping = aes(colour = log(N))) +
+  scale_colour_viridis_c() +
+  theme_minimal()
+```
+
+
+```{r}
+ggplot() +
+  geom_sf(data = ais_sf, mapping = aes(colour = log(N))) +
+  geom_sf(data = denmark, fill = "grey") +
+  scale_colour_viridis_c() +
+  theme_minimal()
+```
+
+
+
