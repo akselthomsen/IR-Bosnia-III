@@ -1,0 +1,64 @@
+---
+title: "Analysing large data - Exercises"
+author: "Aksel Thomsen"
+date: "Statistical Programming with R"
+output: html_document
+---
+
+In this exercise we will try to recreate a map of sailing rutes in Denmark.
+It is a good example on how you can gain a lot of information by applying a quite simple analysis to a large amount of data.
+
+## Problem 1
+
+Here we want to only keep the relevant information in the data.
+The analysis requires the position of the moving ships.
+
+One way of restricting the data is as follows:
+
+1. Read any one of the csv files into R
+1. Select only the relevant variables
+1. Filter so you onlt have the relevant observations
+
+## Problem 2
+
+Can you apply the same restrictions to all five CSV files and combine them to one data ready for analysis?
+
+If you are running out of RAM use the `n_max` argument to `readr::read_csv` to limit how many observations you include. For this specific problem it is okay not include all.
+
+## Problem 3
+
+Create a `disk.frame` in stead based on the CSV files.
+Remember to run the setup code after loading the package.
+
+Hint: To save developing time start with only using one CSV file or just use a single one.
+
+- How many chunks is it divided in?
+- How many observations do they have?
+
+## Problem 4
+
+Apply the same restrictions from problem 1 & 2 to the `disk.frame`.
+
+## Problem 5
+
+- Define a 1000 x 1000 meter grid
+- A simple way is just to divide the coordinates with 1000 and round them
+- Calculate the number of observations in each grid over the 5 days?
+
+## Problem 6
+
+We can plot Denmark as follows (from the first course):
+
+```{r, message=FALSE}
+library(tidyverse)
+library(sf)
+
+denmark <- st_read("DK_map.shp")
+
+ggplot() +
+  geom_sf(data = denmark) +
+  theme_minimal()
+```
+
+Use the data from problem 5 to make a heatmap of the most transited waters.
+Hint: Plot the grids on top colour encoded.

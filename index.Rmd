@@ -207,9 +207,18 @@ type `Yes` in the console and press the return key.
 
 - Part E: Analysing large data
 
-    - [Lecture E](Contents/Material/Part E/Lecture.html){target="_blank"}
-    - [Exercise E](Contents/Material/Part E/Exercise.html){target="_blank"}
-    - [Solution E](Contents/Material/Part E/Exercise.html){target="_blank"}
+    - [Lecture E](Contents/Material/Part E/Lecture_E.html){target="_blank"}
+    - [Exercise E](Contents/Material/Part E/Exercise_E.html){target="_blank"}
+    - [Solution E](Contents/Material/Part E/Solution_E.html){target="_blank"}
+    - Data: 
+       - Shapefile used in the exercise
+          - [DK_map.shp](Contents/Material/Part E/DK_map.shp){target="_blank"}
+          - [DK_map.dbf](Contents/Material/Part E/DK_map.dbf){target="_blank"}
+          - [DK_map.shx](Contents/Material/Part E/DK_map.shx){target="_blank"}
+          - [DK_map.prj](Contents/Material/Part E/DK_map.prj){target="_blank"}
+       - AIS data:
+          - Downloaded from [ais.dk](ftp://ftp.ais.dk/ais_data/)
+          - In the course provided on USB drives
 
 ## Column 2
 

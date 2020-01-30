@@ -1,5 +1,5 @@
 ---
-title: "Preparation for tomorrow"
+title: "Analysing large data"
 author: "Aksel Thomsen"
 date: "Statistical Programming with R"
 output:
@@ -10,4 +10,232 @@ output:
     self_contained: TRUE   
 ---
 
-# 
+## Plan
+
+- Quick intro to analysing "large" data in R
+- Apply tools from yesterday
+- The `disk.frame` package
+- Enables manipulation of "large" data
+- Use case with AIS data
+- Exercises & walkthrough
+
+# Large data
+
+## What is it?
+
+- *Normal data*: Easily fit in RAM - everyday R data
+- *Large data*: Bigger than RAM - but fits on disk
+- *Big data*: Too big for disk - need special databases
+
+## Special problems
+
+- Does not fit in RAM
+- Can´t analyse data as normal
+- Split, apply, combine is the solution!
+
+## Possible tools
+
+- Functional programming from yesterday
+   - `map`
+   - `reduce`
+   - `...`
+- Special packages
+   - `disk.frame`
+   
+# AIS data
+
+## What is AIS?
+
+- **A**utomatic **I**dentification **S**ystem
+- Positional data on ships in Denmark
+- An observation per 10 second per ship
+- Our variables of interest:
+   - `SOG`: Speed over ground
+   - `Longitude`
+   - `Latitude`
+- Data for December 1-5 2019
+- Seperate CSV files
+
+## The data
+
+```{r, message=FALSE}
+library(tidyverse)
+tibble(FILE = list.files(pattern = "aisdk")) %>% 
+  arrange(FILE) %>% 
+  mutate(SIZE_MB = map_dbl(.x = FILE, file.size)/1024^2)
+```
+
+## Read one in
+
+```{r}
+df <- readr::read_csv(file = "aisdk_201902.csv")
+```
+
+## Inspect data
+
+```{r}
+nrow(df)
+ncol(df)
+```
+
+## Inspect data
+
+```{r}
+names(df)
+```
+
+## Inspect data
+
+```{r}
+as_tibble(df)
+```
+
+## Only relevant
+
+```{r}
+df_relevant <- df %>% 
+  as_tibble() %>%
+  select(TIMESTAMP = `# Timestamp`, MMSI, SOG, Latitude, Longitude)
+
+df_relevant
+```
+
+## One ship has many observations
+
+```{r}
+df_relevant %>% filter(MMSI == 2194005)
+```
+
+## Summary statistics
+
+```{r, message=FALSE}
+pryr::object_size(df)
+pryr::object_size(df_relevant)
+summary(df_relevant)
+```
+
+## Learnings
+
+- One day is an okay size
+- Only keep relevant information
+- If we had all days we might be in trouble memory wise
+
+# disk.frame
+
+## The `disk.frame` package
+
+- [diskframe.com](https://diskframe.com/index.html)
+- Purpose: To manipulate data larger than RAM
+- The idea:
+   1. Split up a larger-than-RAM dataset into chunks
+   1. Provide a convenient API to manipulate these chunks
+- Split & apply!
+
+## How it works
+
+- Splits data into small chunks saved on the disk
+- Uses parrallel processes to manipulate them fast!
+
+## How to learn it
+
+- It is relatively new
+- Very good webpage
+- With very good examples and vignettes
+- Go through them next time you need `disk.frame`
+
+## Setup
+
+```{r}
+library(disk.frame)
+```
+
+## Setup
+
+```{r}
+# this will set up disk.frame with multiple workers
+setup_disk.frame()
+# this will allow unlimited amount of data to be passed from worker to worker
+options(future.globals.maxSize = Inf)
+```
+
+## Create disk.frame
+
+```{r}
+df_disk <- as.disk.frame(df_relevant)
+
+df_disk
+```
+
+## Directly from CSV
+
+From one CSV:
+
+```{r, eval=FALSE}
+df_disk_csv <- csv_to_disk.frame(infile = "aisdk_201902.csv")
+```
+
+From several in one go:
+
+```{r, eval=FALSE}
+df_disk_csv <- csv_to_disk.frame(
+  infile = c("aisdk_201901.csv","aisdk_201902.csv")
+  )
+```
+
+## How to manipulate
+
+- Most `dplyr` verbs are defined
+- Check the webpage
+- Manipulate the chunks yourself and combine afterwars
+- Functional programming again!
+
+## New functions
+
+- `delayed(.x , .f, ...)`
+- `chunk_mutate`
+- `chunk_group_by`
+- `chunk_summarise`
+- `collect`
+- `collect_list`
+
+## Examples
+
+Calculate the number of observations in each chunk
+
+```{r}
+df_disk %>% 
+  delayed(.f = nrow)
+```
+
+## Examples
+
+```{r}
+df_disk %>% 
+  delayed(.f = nrow) %>% 
+  collect_list()
+```
+
+## Examples
+
+Calculate mean speed of all observations
+
+```{r}
+df_disk %>% 
+  chunk_summarise(SOG_MEAN = mean(SOG, na.rm = TRUE)) %>% 
+  collect()
+```
+
+## Examples
+
+Calculate mean speed of all observations
+
+```{r}
+df_disk %>% 
+  chunk_summarise(N = n(),
+                  SOG_MEAN = mean(SOG, na.rm = TRUE)) %>% 
+  collect() %>% 
+  print() %>% 
+  summarise(SOG_MEAN_TOTAL = sum(N * SOG_MEAN)/sum(N) )
+```
+
+# Exercise

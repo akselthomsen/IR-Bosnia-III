@@ -1,0 +1,6 @@
+---
+title: "Analysing large data - Solutions"
+author: "Aksel Thomsen"
+date: "Statistical Programming with R"
+output: html_document
+---
