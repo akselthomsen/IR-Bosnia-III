@@ -46,6 +46,8 @@ If you want access to the underlying R files, that creates the presentation and 
 
 *Update 29 January*: Due to time constraints, the two last subjects has been combined into a smaller section on analysing large data.
 
+*Final update 5 February*: Have just uploaded a revised version of the solutions to Lecture E. The solution is the same, but the errors along the way have been corrected.
+
 ## Column 2
 
 ### Course schedule 
@@ -223,7 +225,8 @@ type `Yes` in the console and press the return key.
 ## Column 2
 
 ### Useful references
-- [add]()
+- [disk.frame](https://diskframe.com/): Full documentation and introduction to the `disk.frame` package
+- [data.table](https://rdatatable.gitlab.io/data.table/): A popular alternative way of manipulating data in R. Scales good for large data as well.
 
 # Further studies
 

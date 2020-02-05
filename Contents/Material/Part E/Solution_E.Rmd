@@ -17,9 +17,11 @@ One way of restricting the data is as follows:
 
 1. Read any one of the csv files into R
 1. Select only the relevant variables
-1. Filter so you onlt have the relevant observations
+1. Filter so you only have the relevant observations
 
-```{r, message=FALSE}
+**Solution**
+
+```{r, message=FALSE, warning=FALSE}
 library(tidyverse)
 df1 <- readr::read_csv("aisdk_201902.csv")
 ```
@@ -35,7 +37,7 @@ df2 <- df1 %>%
 ```
 
 ```{r}
-df2
+head(df2)
 ```
 
 ## Problem 2
@@ -44,18 +46,22 @@ Can you apply the same restrictions to all five CSV files and combine them to on
 
 If you are running out of RAM use the `n_max` argument to `readr::read_csv` to limit how many observations you include. For this specific problem it is okay not include all.
 
+**Solution**
+
 ```{r}
 ais_files <- list.files(pattern = "aisdk")
 
 ais_files
 ```
 
-```{r}
+I use `n_max=1000` so I don't run out of memory.
+
+```{r, warning=FALSE, message=FALSE}
 df1_all <- purrr::map(.x = ais_files, .f = readr::read_csv, n_max = 1000)
 ```
 
 ```{r}
-df1_all
+map(df1_all, head, 5)
 ```
 
 ```{r}
@@ -67,13 +73,12 @@ df2_all <- df1_all %>%
       filter(!is.na(SOG),SOG>0)
   )
 
-df2_all
+map(df2_all, head, 5)
 
 df_combined <- bind_rows(df2_all)
 
-df_combined
+head(df_combined)
 ```
-
 
 ## Problem 3
 
@@ -114,6 +119,8 @@ collect_list(n_obs)
 
 Apply the same restrictions from problem 1 & 2 to the `disk.frame`.
 
+**Solution**
+
 ```{r}
 ais_df_restricted <- ais_df %>% 
   select(Latitude,Longitude,SOG) %>% 
@@ -121,6 +128,7 @@ ais_df_restricted <- ais_df %>%
 
 ais_df_restricted
 
+# Data is not collected until the end to save computing time and memory
 # collect(ais_df_restricted)
 ```
 
@@ -130,15 +138,23 @@ ais_df_restricted
 - A simple way is just to divide the coordinates with 1000 and round them
 - Calculate the number of observations in each grid over the 5 days?
 
+**Solution**
+
+First i calculate the grids.
+In stead of 1000 x 1000 meter grids, I calculate rounded to digits degrees.
+Sorry for the confusion. The two grid sized are not the same, but the the technique is equilivant.
+
 ```{r}
 head(ais_df_restricted)
 
 ais_df_grid <- ais_df_restricted %>% 
-  mutate(X = round(Latitude, digits = 2),
-         Y = round(Longitude, digits = 2))
+  mutate(X = round(Longitude, digits = 2),
+         Y = round(Latitude, digits = 2))
 
 head(ais_df_grid)
 ```
+
+Summarise and collect the results for each chunk.
 
 ```{r}
 ais_df_sum <- ais_df_grid %>% 
@@ -147,6 +163,8 @@ ais_df_sum <- ais_df_grid %>%
 
 ais_df_sum <- collect(ais_df_sum)
 ```
+
+Summarise the chunk results.
 
 ```{r}
 ais_df_sum
@@ -181,27 +199,36 @@ ggplot() +
 Use the data from problem 5 to make a heatmap of the most transited waters.
 Hint: Plot the grids on top colour encoded.
 
+**Solution**
+
+First I filter the grid data removing the points outside Denmark.
+
 ```{r}
 ais_df_filtered <- ais_df_sum2 %>% 
-  filter(Y > 7, Y < 16, X > 54, X < 58)
+  filter(X > 7, X < 16, Y > 54, Y < 58)
 ```
+
+Simple plot:
 
 ```{r}
 ggplot(data = ais_df_filtered) +
-  geom_point(mapping = aes(x = Y, y = X, colour = log(N))) +
+  geom_point(mapping = aes(x = X, y = Y, colour = log(N))) +
   scale_colour_viridis_c()
 ```
 
+Convert to `sf` object, making it easier to overlap with the map of Denmark. 
+
 ```{r}
 ais_sf <- ais_df_filtered %>% 
-  mutate(X_real = Y, Y_real = X) %>% 
-  st_as_sf(coords = c("X_real","Y_real")) %>% 
-  st_set_crs(value = 4326)
+  st_as_sf(coords = c("X","Y")) %>% 
+  st_set_crs(value = 4326) #The reference of the coordinate system
 ```
 
 ```{r}
 ais_sf
 ```
+
+How does it look now?
 
 ```{r}
 ggplot() +
@@ -209,12 +236,7 @@ ggplot() +
   scale_colour_viridis_c()
 ```
 
-
-```{r}
-ggplot() +
-  geom_sf(data = denmark) +
-  theme_minimal()
-```
+First attempt at combining them:
 
 ```{r}
 ggplot() +
@@ -224,6 +246,7 @@ ggplot() +
   theme_minimal()
 ```
 
+There is a lot of points inside the country. A simple way of making it look nicer is to change the order of plotting, so that the map of Denmark is plotted last in stead:
 
 ```{r}
 ggplot() +
@@ -233,5 +256,4 @@ ggplot() +
   theme_minimal()
 ```
 
-
-
+Note: In order to make a proper grid plot we would need to plot squared polygons in stead of simple dots, but the interpretation and method would be the same.
